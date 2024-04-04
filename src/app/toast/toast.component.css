@@ -1,0 +1,32 @@
+.sb {
+  min-width: 21.875rem;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 0.313rem;
+  position: fixed;
+  z-index: 1;
+  top: 2.5rem;
+  right: 2.5rem;
+  animation: fadein 0.5s;
+}
+
+@keyframes fadein {
+  from {
+    right: 0;
+    opacity: 0;
+  }
+  to {
+    right: 2.5rem;
+    opacity: 1;
+  }
+}
+
+.sb-error {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.sb-success {
+  background-color: #1abc9c;
+  color: #28282b;
+}

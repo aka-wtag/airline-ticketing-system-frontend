@@ -1,0 +1,77 @@
+<div class="registration-container">
+  <app-toast [errorMessage]="errorMessage"></app-toast>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <h2>User Registration</h2>
+    <div class="form-group">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" formControlName="userFullName" />
+      <small
+        *ngIf="registrationForm.get('userFullName').errors?.['required'] && registrationForm.get('userFullName').touched"
+      >
+        *Full name must be provided.
+      </small>
+      <small
+        *ngIf="registrationForm.get('userFullName').errors?.['minlength'] && registrationForm.get('userFullName').touched"
+      >
+        *Name is too short.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" formControlName="userPassword" />
+      <small
+        *ngIf="registrationForm.get('userPassword').errors?.['required'] && registrationForm.get('userPassword').touched"
+      >
+        *Password must be provided.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="userEmail" />
+      <small
+        *ngIf="registrationForm.get('userEmail').errors?.['required'] && registrationForm.get('userEmail').touched"
+      >
+        *Email name must be provided.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="contact">Contact:</label>
+      <input type="text" id="contact" formControlName="userContact" />
+      <small
+        *ngIf="registrationForm.get('userContact').errors?.['required'] && registrationForm.get('userContact').touched"
+      >
+        *Contact must be provided.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="passportNumber">Passport Number:</label>
+      <input
+        type="text"
+        id="passportNumber"
+        formControlName="passengerPassport"
+      />
+      <small
+        *ngIf="registrationForm.get('passengerPassport').errors?.['required'] && registrationForm.get('passengerPassport').touched"
+      >
+        *Passport number must be provided.
+      </small>
+    </div>
+
+    <!-- <div class="form-group">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+        />
+      </div> -->
+
+    <button type="submit" [disabled]="registrationForm.invalid">
+      Register
+    </button>
+  </form>
+</div>
