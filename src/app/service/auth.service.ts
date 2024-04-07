@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
-import { map, pipe } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { TokenService } from '../service/token.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+
+  constructor(private http: HttpClient) {
+    if (this.getToken() && this.getId() && this.getType()) {
+      this.updateAuth(true);
+    }
+  }
 
   onLogin(data: any) {
-    return this.http.post('http://localhost:8080/users/login', data).pipe(
+    return this.http.post(`${environment.apiUrl}/users/login`, data).pipe(
       map((response) => {
         if (response) {
-          this.tokenService.setToken(response['accessToken']);
+          this.setAuth(response);
         }
         return response;
       })
@@ -21,12 +29,42 @@ export class AuthService {
   }
 
   onRegistration(data: any) {
-    return this.http.post('http://localhost:8080/passengers', data);
+    return this.http.post(`${environment.apiUrl}/passengers`, data);
   }
 
   onLogout() {
-    this.http.post('http://localhost:8080/users/logout', null).subscribe(() => {
-      this.tokenService.removeToken();
+    this.http.post(`${environment.apiUrl}/users/logout`, null).subscribe(() => {
+      this.removeAuth();
     });
+  }
+
+  updateAuth(status: boolean) {
+    this.isAuthenticated.next(status);
+  }
+
+  setAuth(response: any) {
+    this.updateAuth(true);
+    localStorage.setItem('token', response['accessToken']);
+    localStorage.setItem('UI', response['id']);
+    localStorage.setItem('UT', response['userType']);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  getId(): string | null {
+    return localStorage.getItem('UI');
+  }
+
+  getType(): string | null {
+    return localStorage.getItem('UT');
+  }
+
+  removeAuth() {
+    this.updateAuth(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('UI');
+    localStorage.removeItem('UT');
   }
 }
