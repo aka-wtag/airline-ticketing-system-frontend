@@ -1,4 +1,4 @@
-.sb {
+.message {
   min-width: 21.875rem;
   text-align: center;
   padding: 1rem;
@@ -8,6 +8,8 @@
   top: 2.5rem;
   right: 2.5rem;
   animation: fadein 0.5s;
+  color: #fff;
+  font-weight: bold;
 }
 
 @keyframes fadein {
@@ -15,18 +17,17 @@
     right: 0;
     opacity: 0;
   }
+
   to {
     right: 2.5rem;
     opacity: 1;
   }
 }
 
-.sb-error {
+.error {
   background-color: #e74c3c;
-  color: #fff;
 }
 
-.sb-success {
-  background-color: #1abc9c;
-  color: #28282b;
+.success {
+  background-color: #4caf50;
 }

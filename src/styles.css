@@ -9,3 +9,11 @@
   margin: 0;
   padding: 0;
 }
+
+:root {
+  --var-red-color: #ff4040;
+  --var-blue-color: #007bff;
+  --var-gray-color: #747474;
+  --var-white-color: #fff;
+  --var-green-color: #4caf50;
+}

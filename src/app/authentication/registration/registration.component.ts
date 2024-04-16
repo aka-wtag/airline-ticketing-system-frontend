@@ -10,7 +10,8 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
-  errorMessage: string;
+  message: string;
+  success: boolean;
 
   constructor(private authService: AuthService, private router: Router) {
     this.registrationForm = new FormGroup({
@@ -27,16 +28,22 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log(this.registrationForm.value);
-
     this.authService.onRegistration(this.registrationForm.value).subscribe({
       next: () => {
-        this.router.navigate(['/login']);
+        this.message = 'Registration successful';
+        this.success = true;
+
+        setTimeout(() => {
+          this.message = '';
+          this.router.navigate(['/login']);
+        }, 2000);
       },
       error: (err) => {
-        this.errorMessage = err.error.message;
+        this.message = err.error.message;
+        this.success = false;
+
         setTimeout(() => {
-          this.errorMessage = '';
+          this.message = '';
         }, 2000);
       },
     });

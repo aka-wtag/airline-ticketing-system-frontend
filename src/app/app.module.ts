@@ -8,16 +8,18 @@ import { RegistrationComponent } from './authentication/registration/registratio
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
-import { AirlineComponent } from './airline/airline.component';
 import { ToastComponent } from './toast/toast.component';
+import { PassengerPageComponent } from './passenger-page/passenger-page.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    AirlineComponent,
     ToastComponent,
+    PassengerPageComponent,
+    AdminPanelComponent,
   ],
   imports: [
     BrowserModule,

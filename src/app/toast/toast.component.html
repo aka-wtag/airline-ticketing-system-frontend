@@ -1,1 +1,7 @@
-<div class="sb sb-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+<div
+  class="message"
+  *ngIf="message"
+  [ngClass]="{ success: success, error: !success }"
+>
+  {{ message }}
+</div>

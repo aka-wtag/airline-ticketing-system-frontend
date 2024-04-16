@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
+import { JwtService } from 'src/app/service/jwt.service';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,12 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   errorMessage: string;
-  @ViewChild('password') passwordField!: ElementRef;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private jwtService: JwtService
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
@@ -30,10 +34,18 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     this.authService.onLogin(this.loginForm.value).subscribe(
       (data) => {
-        this.router.navigate(['/airlines']);
+        console.log(data);
+        if (
+          this.jwtService.getUserTypeFromToken(
+            localStorage.getItem('token')
+          ) === 'Admin'
+        ) {
+          this.router.navigate(['']);
+          return;
+        }
+        this.router.navigate(['/passenger-page']);
       },
       (err) => {
-        console.log(err.error);
         this.errorMessage = err.error.message;
         setTimeout(() => {
           this.errorMessage = '';

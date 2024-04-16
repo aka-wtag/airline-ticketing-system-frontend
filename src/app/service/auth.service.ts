@@ -12,7 +12,7 @@ export class AuthService {
   );
 
   constructor(private http: HttpClient) {
-    if (this.getToken() && this.getId() && this.getType()) {
+    if (this.getToken()) {
       this.updateAuth(true);
     }
   }
@@ -45,26 +45,14 @@ export class AuthService {
   setAuth(response: any) {
     this.updateAuth(true);
     localStorage.setItem('token', response['accessToken']);
-    localStorage.setItem('UI', response['id']);
-    localStorage.setItem('UT', response['userType']);
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  getId(): string | null {
-    return localStorage.getItem('UI');
-  }
-
-  getType(): string | null {
-    return localStorage.getItem('UT');
-  }
-
   removeAuth() {
     this.updateAuth(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('UI');
-    localStorage.removeItem('UT');
   }
 }

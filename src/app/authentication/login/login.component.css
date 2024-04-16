@@ -4,9 +4,9 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url("src/assets/images/airplane.jpg");
+  background-image: url("../../../assets/images/airline_image1.jpg");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
 }
 
 form {
@@ -42,8 +42,8 @@ input {
 }
 
 button {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--var-blue-color);
+  color: var(--var-white-color);
   padding: 0.625rem;
   border: none;
   border-radius: 0.25rem;
@@ -51,7 +51,7 @@ button {
 }
 
 button:disabled {
-  background-color: #747474;
+  background-color: var(--var-gray-color);
   cursor: not-allowed;
 }
 
@@ -61,16 +61,16 @@ button:disabled {
 }
 
 .error-message {
-  color: red;
+  color: var(--var-red-color);
   font-size: 0.875rem;
   margin-top: 0.313rem;
 }
 
 input.ng-invalid.ng-touched {
-  border: red 0.125px solid;
+  border: var(--var-red-color) 0.1rem solid;
 }
 
 small {
-  color: red;
-  font-weight: bold;
+  color: var(--var-red-color);
+  font-weight: bolder;
 }

@@ -6,7 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./toast.component.css'],
 })
 export class ToastComponent implements OnInit {
-  @Input() errorMessage: string;
+  @Input() message: string;
+  @Input() success: boolean;
 
   constructor() {}
 
