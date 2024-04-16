@@ -13,9 +13,7 @@ form {
   width: 20.75rem;
   margin: 1.25rem;
   padding: 1.25rem;
-  border: 0.063rem solid var(--border-color);
   border-radius: 0.313rem;
-  box-shadow: 0 0 0.625rem var(--border-box-shadow);
   background-color: rgb(170, 170, 170, 0.8);
 }
 
