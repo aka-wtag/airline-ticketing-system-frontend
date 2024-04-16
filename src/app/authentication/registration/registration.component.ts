@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { ToastService } from 'src/app/service/toast.service';
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +14,11 @@ export class RegistrationComponent implements OnInit {
   message: string;
   success: boolean;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastService: ToastService
+  ) {
     this.registrationForm = new FormGroup({
       userFullName: new FormControl('', [
         Validators.required,
@@ -30,21 +35,11 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     this.authService.onRegistration(this.registrationForm.value).subscribe({
       next: () => {
-        this.message = 'Registration successful';
-        this.success = true;
-
-        setTimeout(() => {
-          this.message = '';
-          this.router.navigate(['/login']);
-        }, 2000);
+        this.toastService.show('Registration successful', true);
+        this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.message = err.error.message;
-        this.success = false;
-
-        setTimeout(() => {
-          this.message = '';
-        }, 2000);
+        this.toastService.show(err.error.message, false);
       },
     });
   }

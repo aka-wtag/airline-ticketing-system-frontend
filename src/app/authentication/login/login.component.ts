@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { JwtService } from 'src/app/service/jwt.service';
+import { ToastService } from 'src/app/service/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,12 @@ import { JwtService } from 'src/app/service/jwt.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  errorMessage: string;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private toastService: ToastService
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -32,8 +33,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.loginForm.value);
-    this.authService.onLogin(this.loginForm.value).subscribe(
-      (data) => {
+    this.authService.onLogin(this.loginForm.value).subscribe({
+      next: (data) => {
         console.log(data);
         if (
           this.jwtService.getUserTypeFromToken(
@@ -45,12 +46,9 @@ export class LoginComponent implements OnInit {
         }
         this.router.navigate(['/passenger-page']);
       },
-      (err) => {
-        this.errorMessage = err.error.message;
-        setTimeout(() => {
-          this.errorMessage = '';
-        }, 2000);
-      }
-    );
+      error: (err) => {
+        this.toastService.show(err.error.message, false);
+      },
+    });
   }
 }

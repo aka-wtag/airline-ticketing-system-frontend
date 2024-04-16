@@ -58,12 +58,6 @@ button:disabled {
   gap: 0.625rem;
 }
 
-.error-message {
-  color: var(--var-red-color);
-  font-size: 0.875rem;
-  margin-top: 0.313rem;
-}
-
 input.ng-invalid.ng-touched {
   border: var(--var-red-color) 0.1rem solid;
 }

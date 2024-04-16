@@ -1,15 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-toast',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.css'],
 })
-export class ToastComponent implements OnInit {
+export class ToastComponent {
   @Input() message: string;
   @Input() success: boolean;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

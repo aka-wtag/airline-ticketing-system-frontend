@@ -1,7 +1,3 @@
-<div
-  class="message"
-  *ngIf="message"
-  [ngClass]="{ success: success, error: !success }"
->
+<div class="message" [ngClass]="{ success: success, error: !success }">
   {{ message }}
 </div>
