@@ -12,8 +12,22 @@
 
 :root {
   --var-red-color: #ff4040;
+  --var-dark-red-color: #8b0000;
+
   --var-blue-color: #007bff;
+  --var-light-blue-color: #4a90e2;
+
   --var-gray-color: #747474;
+  --var-light-gray-color: #ccc;
+  --var-dark-gray-color: #333;
+
   --var-white-color: #fff;
+  --var-off-white-color: #f9f9f9;
+
   --var-green-color: #4caf50;
+  --var-black-color: #000000;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
 }

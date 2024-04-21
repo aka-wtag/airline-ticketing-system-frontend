@@ -1,0 +1,40 @@
+<div class="overlay">
+  <div class="popup">
+    <h2>Update Flight</h2>
+    <button class="close" (click)="onCloseForm()">&times;</button>
+    <div class="content">
+      <section class="container">
+        <form
+          class="form"
+          [formGroup]="editFlightForm"
+          (ngSubmit)="onFormSubmitted()"
+        >
+          <div class="input-box">
+            <label>Fare*</label>
+            <input type="number" formControlName="fare" />
+            <small
+              *ngIf="(editFlightForm.get('fare').errors?.['required'] || editFlightForm.get('fare').errors?.['min'] ) && editFlightForm.get('fare').touched"
+            >
+              *Fare must be provided and should be greater than 1000
+            </small>
+          </div>
+          <div class="input-box airline">
+            <label>Airline*</label>
+            <div class="select-box">
+              <select formControlName="airlineId">
+                <ng-container *ngFor="let airline of airlines">
+                  <option [value]="airline.airlineId">
+                    {{ airline.airlineModel }}
+                  </option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+          <button type="submit" [disabled]="editFlightForm.invalid">
+            Update
+          </button>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

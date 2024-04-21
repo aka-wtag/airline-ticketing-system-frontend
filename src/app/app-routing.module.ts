@@ -6,6 +6,7 @@ import { PassengerPageComponent } from './passenger-page/passenger-page.componen
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { DashboardComponent } from './admin-panel/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,7 +16,9 @@ const routes: Routes = [
     path: '',
     component: AdminPanelComponent,
     canActivate: [AuthGuard, AdminGuard],
+    children: [{ path: '', component: DashboardComponent }],
   },
+  // { path: '**', component: UnauthorizedComponent },
 ];
 
 @NgModule({
