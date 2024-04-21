@@ -13,6 +13,7 @@ import { DashboardComponent } from './admin-panel/dashboard/dashboard.component'
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { EditFlightComponent } from './admin-panel/dashboard/edit-flight/edit-flight.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AddFlightComponent } from './admin-panel/add-flight/add-flight.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
     DashboardComponent,
     EditFlightComponent,
     AdminPanelComponent,
+    AddFlightComponent,
   ],
   imports: [
     BrowserModule,
