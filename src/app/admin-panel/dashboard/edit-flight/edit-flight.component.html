@@ -24,7 +24,7 @@
               <select formControlName="airlineId">
                 <ng-container *ngFor="let airline of airlines">
                   <option [value]="airline.airlineId">
-                    {{ airline.airlineModel }}
+                    {{ airline.airlineModel }}, {{ airline.airlineName }}
                   </option>
                 </ng-container>
               </select>

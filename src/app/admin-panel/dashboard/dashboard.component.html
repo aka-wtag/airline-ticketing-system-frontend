@@ -51,7 +51,9 @@
           <td>{{ flight.arrivalLocation }}</td>
           <td>{{ flight.departureLocation }}</td>
           <td>{{ flight.fare }}</td>
-          <td>{{ flight.airline.airlineModel }}</td>
+          <td>
+            {{ flight.airline.airlineModel }}, {{ flight.airline.airlineName }}
+          </td>
           <td>{{ flight.remainingSeats }}</td>
           <td>
             <button class="edit-btn" (click)="editFlightForm(flight)">
