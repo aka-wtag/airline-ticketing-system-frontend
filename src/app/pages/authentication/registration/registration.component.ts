@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/service/auth.service';
-import { ToastService } from 'src/app/service/toast.service';
+import { AuthService } from 'src/app/core/service/auth.service';
+import { ToastService } from 'src/app/core/service/toast.service';
 
 @Component({
   selector: 'app-registration',
@@ -10,9 +10,9 @@ import { ToastService } from 'src/app/service/toast.service';
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent implements OnInit {
-  registrationForm!: FormGroup;
-  message: string;
-  success: boolean;
+  registrationForm: FormGroup;
+  message?: string;
+  success?: boolean;
 
   constructor(
     private authService: AuthService,
@@ -24,8 +24,14 @@ export class RegistrationComponent implements OnInit {
         Validators.required,
         Validators.minLength(5),
       ]),
-      userPassword: new FormControl('', [Validators.required]),
-      userEmail: new FormControl('', [Validators.required, Validators.email]),
+      userPassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      userEmail: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
+      ]),
       userContact: new FormControl('', [Validators.required]),
       passengerPassport: new FormControl('', [Validators.required]),
     });
@@ -42,5 +48,13 @@ export class RegistrationComponent implements OnInit {
         this.toastService.show(err.error.message, false);
       },
     });
+  }
+
+  isTouched(key: string) {
+    return this.registrationForm.get(key)?.touched;
+  }
+
+  isValid(key: string, validatorType: string) {
+    return this.registrationForm.get(key)?.errors?.[validatorType];
   }
 }

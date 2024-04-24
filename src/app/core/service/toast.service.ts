@@ -11,6 +11,10 @@ export class ToastService {
   constructor() {}
 
   show(message: string, success: boolean) {
+    if (!message) {
+      message = 'Service not avaiable';
+    }
+
     this.toastSubject.next({ message, success });
 
     setTimeout(() => {

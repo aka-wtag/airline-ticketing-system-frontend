@@ -12,13 +12,8 @@ import { AuthService } from '../service/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  private authenticated: boolean;
-  constructor(private authService: AuthService, private router: Router) {
-    this.authService.isAuthenticated.subscribe((response) => {
-      this.authenticated = response;
-    });
-  }
+export class PassengerGuard implements CanActivate {
+  constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -28,10 +23,10 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authenticated) {
+    if (this.authService.getUserType() === 'Passenger') {
       return true;
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/unauthorized']);
       return false;
     }
   }

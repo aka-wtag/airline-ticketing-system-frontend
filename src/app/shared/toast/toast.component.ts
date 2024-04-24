@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./toast.component.css'],
 })
 export class ToastComponent {
-  @Input() message: string;
-  @Input() success: boolean;
+  @Input() message!: string;
+  @Input() success!: boolean;
 }

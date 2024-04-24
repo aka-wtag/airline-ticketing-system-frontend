@@ -7,13 +7,13 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JwtService } from '../service/jwt.service';
+import { AuthService } from '../service/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminGuard implements CanActivate {
-  constructor(private router: Router, private jwtService: JwtService) { }
+  constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -23,7 +23,7 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.jwtService.getUserTypeFromToken(localStorage.getItem('token'))) {
+    if (this.authService.getUserType() === 'Admin') {
       return true;
     } else {
       this.router.navigate(['/unauthorized']);

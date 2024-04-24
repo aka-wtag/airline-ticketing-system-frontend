@@ -4,15 +4,11 @@
     <div class="form-group">
       <label for="username">Email:</label>
       <input type="text" id="username" formControlName="email" required />
-      <small
-        *ngIf="loginForm.get('email').errors?.['required'] && loginForm.get('email').touched"
-      >
+      <small *ngIf="isValid('email', 'required') && isTouched('email')">
         *Email must be provided.
       </small>
-      <small
-        *ngIf="loginForm.get('email').errors?.['email'] && loginForm.get('email').touched"
-      >
-        *Not a valid email.
+      <small *ngIf="isValid('email', 'pattern') && isTouched('email')">
+        *Email not valid.
       </small>
     </div>
 
@@ -25,7 +21,7 @@
         required
       />
       <small
-        *ngIf="loginForm.get('password').errors?.['required'] && loginForm.get('password').touched"
+        *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
       >
         *Password must be provided.
       </small>

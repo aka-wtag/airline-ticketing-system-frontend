@@ -1,20 +1,20 @@
-.login-container {
+.registration-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url("../../../assets/images/airline_image1.jpg");
+  background-image: url("../../../../assets/images/airline_image2.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 form {
-  width: 20.75rem;
+  width: 22.75rem;
   margin: 1.25rem;
   padding: 1.25rem;
   border-radius: 0.313rem;
-  background-color: rgb(170, 170, 170, 0.8);
+  background-color: rgb(170, 170, 170, 0.7);
 }
 
 form h2 {
@@ -35,12 +35,12 @@ input {
   width: 100%;
   padding: 0.5rem;
   box-sizing: border-box;
-  border: 0.063rem solid var(--border-color);
+  border: 0.063rem solid var(--var-gray-color);
   border-radius: 0.25rem;
 }
 
 button {
-  background-color: var(--var-blue-color);
+  background-color: var(--var-green-color);
   color: var(--var-white-color);
   padding: 0.625rem;
   border: none;
@@ -51,11 +51,6 @@ button {
 button:disabled {
   background-color: var(--var-gray-color);
   cursor: not-allowed;
-}
-
-.button-wrapper {
-  display: flex;
-  gap: 0.625rem;
 }
 
 input.ng-invalid.ng-touched {

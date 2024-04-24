@@ -1,5 +1,5 @@
 <app-toast
-  *ngIf="toastService.toastState | async as toast"
+  *ngIf="getToastService().toastState | async as toast"
   [message]="toast.message"
   [success]="toast.success"
 >
