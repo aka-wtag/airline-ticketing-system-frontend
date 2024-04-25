@@ -45,7 +45,7 @@ export class RegistrationComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.toastService.show(err.error.message, false);
+        this.toastService.show(err, false);
       },
     });
   }
