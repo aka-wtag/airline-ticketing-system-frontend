@@ -1,0 +1,65 @@
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.container .box {
+  border: 0.125rem solid var(--var-black-color);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0.5rem;
+  gap: 1rem;
+}
+
+.container .box img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.flights {
+  background-color: var(--var-white-color);
+  margin: 2rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.3);
+}
+
+.flights h2 {
+  margin: 1.5rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: var(--var-light-blue-color);
+  color: var(--var-white-color);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 0.1rem solid var(--var-light-gray-color);
+}
+
+button {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.edit-btn,
+.delete-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--var-light-blue-color);
+}

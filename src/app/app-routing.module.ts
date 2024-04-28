@@ -6,6 +6,7 @@ import { AdminGuard } from './core/guards/admin.guard';
 import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 import { PassengerGuard } from './core/guards/passenger.guard';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { DashboardComponent } from './pages/admin-panel/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,9 @@ const routes: Routes = [
     path: 'dashboard',
     component: AdminPanelComponent,
     canActivate: [AuthGuard, AdminGuard],
+    children: [
+      {path: '', component: DashboardComponent},
+    ]
   },
   { path: 'unauthorized', component: UnauthorizedComponent },
 ];

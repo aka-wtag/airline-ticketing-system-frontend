@@ -8,6 +8,10 @@ import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.compone
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 import { PassengerPageComponent } from './pages/passenger-page/passenger-page.component';
+import { HeaderComponent } from './pages/admin-panel/header/header.component';
+import { DashboardComponent } from './pages/admin-panel/dashboard/dashboard.component';
+import { EditFlightComponent } from './pages/admin-panel/dashboard/edit-flight/edit-flight.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,8 +20,11 @@ import { PassengerPageComponent } from './pages/passenger-page/passenger-page.co
     AdminPanelComponent,
     PassengerPageComponent,
     UnauthorizedComponent,
+    HeaderComponent,
+    DashboardComponent,
+    EditFlightComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
