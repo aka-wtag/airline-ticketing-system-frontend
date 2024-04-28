@@ -31,3 +31,7 @@
 .success {
   background-color: var(--var-green-color);
 }
+
+.icon {
+  margin-right: 0.5rem;
+}
