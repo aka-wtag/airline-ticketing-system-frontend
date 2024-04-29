@@ -22,12 +22,11 @@ const routes: Routes = [
     canActivate: [AuthGuard, PassengerGuard],
   },
   {
-    path: 'dashboard',
-    component: AdminPanelComponent,
-    canActivate: [AuthGuard, AdminGuard],
-    children: [
-      {path: '', component: DashboardComponent},
-    ]
+    path: '',
+    loadChildren: () =>
+      import('./pages/admin-panel/admin-panel.module').then(
+        (m) => m.AdminPanelModule
+      ),
   },
   { path: 'unauthorized', component: UnauthorizedComponent },
 ];
