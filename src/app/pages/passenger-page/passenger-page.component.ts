@@ -6,6 +6,7 @@ import { ToastService } from 'src/app/core/service/toast.service';
 @Component({
   selector: 'app-passenger-page',
   templateUrl: './passenger-page.component.html',
+  styleUrls: ['./passenger-page.component.css']
 })
 export class PassengerPageComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private toastService: ToastService) {}

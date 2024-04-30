@@ -50,11 +50,10 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  isTouched(key: string) {
-    return this.registrationForm.get(key)?.touched;
-  }
-
-  isValid(key: string, validatorType: string) {
-    return this.registrationForm.get(key)?.errors?.[validatorType];
+  isValid(key: string, validatorType: string): boolean {
+    return (
+      this.registrationForm.get(key)?.errors?.[validatorType] &&
+      this.registrationForm.get(key)?.touched
+    );
   }
 }

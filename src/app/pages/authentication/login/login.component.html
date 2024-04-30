@@ -4,12 +4,10 @@
     <div class="form-group">
       <label for="username">Email:</label>
       <input type="text" id="username" formControlName="email" required />
-      <small *ngIf="isValid('email', 'required') && isTouched('email')">
+      <small *ngIf="isValid('email', 'required')">
         *Email must be provided.
       </small>
-      <small *ngIf="isValid('email', 'pattern') && isTouched('email')">
-        *Email not valid.
-      </small>
+      <small *ngIf="isValid('email', 'pattern')"> *Email not valid. </small>
     </div>
 
     <div class="form-group">
@@ -21,7 +19,7 @@
         required
       />
       <small
-        *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
+        *ngIf="isValid('password', 'required')"
       >
         *Password must be provided.
       </small>
@@ -29,7 +27,7 @@
 
     <div class="button-wrapper">
       <button type="submit" [disabled]="loginForm.invalid">Login</button>
-      <button type="button" (click)="goToRegistration()">Register</button>
+      <button type="button" [routerLink]="'/registration'">Register</button>
     </div>
   </form>
 </div>
