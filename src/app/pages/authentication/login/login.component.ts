@@ -28,10 +28,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  goToRegistration() {
-    this.router.navigate(['/registration']);
-  }
-
   onSubmit() {
     this.authService.onLogin(this.loginForm.value).subscribe({
       next: () => {
@@ -47,11 +43,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  isTouched(key: string) {
-    return this.loginForm.get(key)?.touched;
-  }
-
-  isValid(key: string, validatorType: string) {
-    return this.loginForm.get(key)?.errors?.[validatorType];
+  isValid(key: string, validatorType: string): boolean {
+    return (
+      this.loginForm.get(key)?.errors?.[validatorType] &&
+      this.loginForm.get(key)?.touched
+    );
   }
 }
