@@ -13,6 +13,8 @@ import { ToastService } from 'src/app/core/service/toast.service';
 export class AddFlightComponent implements OnInit {
   flightForm!: FormGroup;
   airlines!: Airline[];
+  sources!: string[];
+  destinations!: string[];
 
   constructor(
     private airlineService: AirlineService,
@@ -37,6 +39,10 @@ export class AddFlightComponent implements OnInit {
     });
 
     this.airlineService.getAllAirlines().subscribe();
+
+    this.sources = ['Dhaka', 'Chittagong', 'Sylhet', 'Florida', 'Toronto'];
+
+    this.destinations = ['Dhaka', 'Chittagong', 'Sylhet', 'Florida', 'Toronto'];
   }
 
   onSubmit() {
@@ -50,5 +56,12 @@ export class AddFlightComponent implements OnInit {
         this.toastService.show(err, false);
       },
     });
+  }
+
+  isValid(key: string, validatorType: string): boolean {
+    return (
+      this.flightForm.get(key)?.errors?.[validatorType] &&
+      this.flightForm.get(key)?.touched
+    );
   }
 }

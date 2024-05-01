@@ -88,15 +88,6 @@ export class FlightService {
   createFlight(requestBody: any) {
     return this.http.post(`${environment.apiUrl}/flights`, requestBody).pipe(
       catchError(this.errorHandler),
-      // tap((data) => {
-      //   let flights = this.flightsSubject.getValue();
-
-      //   if (flights) {
-      //     flights.unshift(data);
-
-      //     this.flightsSubject.next(flights);
-      //   }
-      // })
     );
   }
 }

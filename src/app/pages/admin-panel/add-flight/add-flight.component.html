@@ -7,7 +7,7 @@
       <input type="time" formControlName="departureTime" />
       <small
         class="error-message"
-        *ngIf="flightForm.get('departureDate')?.errors?.['required'] && flightForm.get('departureDate')?.touched || flightForm.get('departureTime')?.errors?.['required'] && flightForm.get('departureTime')?.touched"
+        *ngIf="isValid('departureDate', 'required') || isValid('departureTime', 'required')"
       >
         *Departure Date or Time must be provided.
       </small>
@@ -18,7 +18,7 @@
       <input type="time" formControlName="arrivalTime" />
       <small
         class="error-message"
-        *ngIf="flightForm.get('arrivalDate')?.errors?.['required'] && flightForm.get('arrivalDate')?.touched || flightForm.get('arrivalTime')?.errors?.['required'] && flightForm.get('arrivalTime')?.touched"
+        *ngIf="isValid('arrivalDate', 'required') || isValid('arrivalTime', 'required')"
       >
         *Arrival Date or Time must be provided.
       </small>
@@ -28,13 +28,13 @@
     <div class="place-input">
       <label>Source</label>
       <select formControlName="departureLocation">
-        <option value="Dhaka">Dhaka</option>
-        <option value="Chittagong">Chittagong</option>
-        <option value="Sylhet">Sylhet</option>
+        <ng-container *ngFor="let source of sources">
+          <option [value]="source">{{ source }}</option>
+        </ng-container>
       </select>
       <small
         class="error-message"
-        *ngIf="flightForm.get('departureLocation')?.errors?.['required'] && flightForm.get('departureLocation')?.touched"
+        *ngIf="isValid('departureLocation', 'required')"
       >
         *Source must be provided.
       </small>
@@ -42,13 +42,13 @@
     <div class="place-input">
       <label>Destination</label>
       <select formControlName="arrivalLocation">
-        <option value="Dhaka">Dhaka</option>
-        <option value="Chittagong">Chittagong</option>
-        <option value="Sylhet">Sylhet</option>
+        <ng-container *ngFor="let destination of destinations">
+          <option [value]="destination">{{ destination }}</option>
+        </ng-container>
       </select>
       <small
         class="error-message"
-        *ngIf="flightForm.get('arrivalLocation')?.errors?.['required'] && flightForm.get('arrivalLocation')?.touched"
+        *ngIf="isValid('arrivalLocation', 'required')"
       >
         *Destination must be provided.
       </small>
@@ -60,13 +60,13 @@
       <input type="number" formControlName="fare" />
       <small
         class="error-message"
-        *ngIf="flightForm.get('fare')?.errors?.['required'] && flightForm.get('fare')?.touched"
+        *ngIf="isValid('fare', 'required')"
       >
         *Fare must be provided.
       </small>
       <small
         class="error-message"
-        *ngIf="flightForm.get('fare')?.errors?.['min'] && flightForm.get('fare')?.touched"
+        *ngIf="isValid('fare', 'min')"
       >
         *Fare must be greater than 1000.
       </small>
@@ -80,11 +80,11 @@
       </select>
       <small
         class="error-message"
-        *ngIf="flightForm.get('airlineId')?.errors?.['required'] && flightForm.get('airlineId')?.touched"
+        *ngIf="isValid('airlineId', 'required')"
       >
         *Select an airline.
       </small>
     </div>
   </div>
-  <button [disabled]="!flightForm.valid">Proceed</button>
+  <button [disabled]="!flightForm.valid">ADD</button>
 </form>
