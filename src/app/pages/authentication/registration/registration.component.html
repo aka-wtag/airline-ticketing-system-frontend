@@ -4,16 +4,10 @@
     <div class="form-group">
       <label for="name">Full Name:</label>
       <input type="text" id="name" formControlName="userFullName" />
-      <small
-        *ngIf="isValid('userFullName', 'required') && isTouched('userFullName')"
-      >
+      <small *ngIf="isValid('userFullName', 'required')">
         *Full name must be provided.
       </small>
-      <small
-        *ngIf="
-          isValid('userFullName', 'minlength') && isTouched('userFullName')
-        "
-      >
+      <small *ngIf="isValid('userFullName', 'minlength')">
         *Name is too short.
       </small>
     </div>
@@ -21,16 +15,10 @@
     <div class="form-group">
       <label for="password">Password:</label>
       <input type="password" id="password" formControlName="userPassword" />
-      <small
-        *ngIf="isValid('userPassword', 'required') && isTouched('userPassword')"
-      >
+      <small *ngIf="isValid('userPassword', 'required')">
         *Password must be provided.
       </small>
-      <small
-        *ngIf="
-          isValid('userPassword', 'minlength') && isTouched('userPassword')
-        "
-      >
+      <small *ngIf="isValid('userPassword', 'minlength')">
         *Password is too short.
       </small>
     </div>
@@ -38,20 +26,16 @@
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" id="email" formControlName="userEmail" />
-      <small *ngIf="isValid('userEmail', 'required') && isTouched('userEmail')">
+      <small *ngIf="isValid('userEmail', 'required')">
         *Email must be provided.
       </small>
-      <small *ngIf="isValid('userEmail', 'pattern') && isTouched('userEmail')">
-        *Email not valid.
-      </small>
+      <small *ngIf="isValid('userEmail', 'pattern')"> *Email not valid. </small>
     </div>
 
     <div class="form-group">
       <label for="contact">Contact:</label>
       <input type="text" id="contact" formControlName="userContact" />
-      <small
-        *ngIf="isValid('userContact', 'required') && isTouched('userContact')"
-      >
+      <small *ngIf="isValid('userContact', 'required')">
         *Contact must be provided.
       </small>
     </div>
@@ -63,12 +47,7 @@
         id="passportNumber"
         formControlName="passengerPassport"
       />
-      <small
-        *ngIf="
-          isValid('passengerPassport', 'required') &&
-          isTouched('passengerPassport')
-        "
-      >
+      <small *ngIf="isValid('passengerPassport', 'required')">
         *Passport number must be provided.
       </small>
     </div>

@@ -62,4 +62,11 @@ export class EditFlightComponent implements OnInit {
         },
       });
   }
+
+  isValid(key: string, validatorType: string): boolean {
+    return (
+      this.editFlightForm.get(key)?.errors?.[validatorType] &&
+      this.editFlightForm.get(key)?.touched
+    );
+  }
 }

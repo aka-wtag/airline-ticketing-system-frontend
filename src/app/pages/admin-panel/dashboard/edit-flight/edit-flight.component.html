@@ -13,7 +13,7 @@
             <label>Fare*</label>
             <input type="number" formControlName="fare" />
             <small
-              *ngIf="(editFlightForm.get('fare')?.errors?.['required'] || editFlightForm.get('fare')?.errors?.['min'] ) && editFlightForm.get('fare')?.touched"
+              *ngIf="isValid('fare', 'required') || isValid('fare', 'min')"
             >
               *Fare must be provided and should be greater than 1000
             </small>
