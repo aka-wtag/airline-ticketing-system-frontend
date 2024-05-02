@@ -1,0 +1,54 @@
+<app-edit-airline
+  *ngIf="showEditAirlineForm"
+  (closeForm)="closeEditAirlineForm()"
+  [selectedAirline]="selectedAirline"
+  [editMode]="editMode"
+>
+</app-edit-airline>
+
+<section class="airline">
+  <h2>Airlines</h2>
+  <button class="add-btn" (click)="addAirlineForm()">Add Airline</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Airline ID</th>
+        <th>Model</th>
+        <th>Airline Name</th>
+        <th>Seats</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let airline of airlines">
+        <tr>
+          <td>{{ airline.airlineId }}</td>
+          <td>{{ airline.airlineModel }}</td>
+          <td>{{ airline.airlineName }}</td>
+          <td>{{ airline.numberOfSeats }}</td>
+          <td>
+            <button class="edit-btn" (click)="editAirlineForm(airline)">
+              <img
+                src="../../../assets/icons/edit-icon.svg"
+                alt="edit_icon"
+                width="20"
+                height="20"
+              />
+            </button>
+            <button
+              class="delete-btn"
+              (click)="deleteAirline(airline.airlineId)"
+            >
+              <img
+                src="../../../assets/icons/delete-icon.svg"
+                alt="delete_icon"
+                width="20"
+                height="20"
+              />
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</section>

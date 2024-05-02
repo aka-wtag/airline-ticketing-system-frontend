@@ -7,6 +7,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditFlightComponent } from './dashboard/edit-flight/edit-flight.component';
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { AddFlightComponent } from './add-flight/add-flight.component';
+import { ManageAirlinesComponent } from './manage-airlines/manage-airlines.component';
+import { AddEditAirlineComponent } from './manage-airlines/add-edit-airline/add-edit-airline.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { AddFlightComponent } from './add-flight/add-flight.component';
     HeaderComponent,
     DashboardComponent,
     EditFlightComponent,
-    AddFlightComponent
+    AddFlightComponent,
+    ManageAirlinesComponent,
+    AddEditAirlineComponent,
   ],
   imports: [CommonModule, AdminPanelRoutingModule, ReactiveFormsModule],
 })

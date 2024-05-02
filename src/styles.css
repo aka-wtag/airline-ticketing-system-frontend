@@ -30,3 +30,7 @@
   --var-green-color: #4caf50;
   --var-black-color: #000000;
 }
+
+body {
+  font-family: "Roboto", sans-serif;
+}
