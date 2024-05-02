@@ -11,7 +11,6 @@ export class ToastService {
   constructor() {}
 
   show(message: string, success: boolean) {
-
     this.toastSubject.next({ message, success });
 
     setTimeout(() => {
