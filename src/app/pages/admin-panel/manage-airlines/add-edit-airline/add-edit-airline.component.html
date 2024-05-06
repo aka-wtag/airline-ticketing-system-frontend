@@ -9,17 +9,19 @@
           [formGroup]="airlineForm"
           (ngSubmit)="onFormSubmitted()"
         >
-          <div class="input-box">
-            <label for="airlineModel">Model*</label>
-            <input
-              type="text"
-              id="airlineModel"
-              formControlName="airlineModel"
-            />
-            <small *ngIf="isValid('airlineModel', 'required')">
-              *Model must be provided
-            </small>
-          </div>
+          <ng-container *ngIf="editMode">
+            <div class="input-box">
+              <label for="airlineModel">Model*</label>
+              <input
+                type="text"
+                id="airlineModel"
+                formControlName="airlineModel"
+              />
+              <small *ngIf="isValid('airlineModel', 'required')">
+                *Model must be provided
+              </small>
+            </div>
+          </ng-container>
           <div class="input-box">
             <label for="airlineName">Airline Name*</label>
             <input type="text" id="airlineName" formControlName="airlineName" />
