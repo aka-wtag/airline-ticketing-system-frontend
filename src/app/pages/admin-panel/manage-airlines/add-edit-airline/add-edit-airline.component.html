@@ -45,7 +45,7 @@
               *Number of seats must be provided and should be greater than 0
             </small>
           </div>
-          <button type="submit" [disabled]="airlineForm.invalid">
+          <button type="submit" [disabled]="isFormValid()">
             {{ editMode ? "Update" : "Add" }}
           </button>
         </form>

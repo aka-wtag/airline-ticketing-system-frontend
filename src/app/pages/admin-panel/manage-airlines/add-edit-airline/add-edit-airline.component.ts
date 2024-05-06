@@ -82,4 +82,12 @@ export class AddEditAirlineComponent implements OnInit {
       this.airlineForm.get(key)?.touched
     );
   }
+
+  isFormValid(): boolean{
+    if(!this.editMode){
+      return this.airlineForm.get('airlineName')!.invalid || this.airlineForm.get('numberOfSeats')!.invalid;
+    }
+
+    return this.airlineForm.invalid
+  }
 }
