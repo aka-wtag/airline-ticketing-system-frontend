@@ -1,0 +1,57 @@
+<app-create-booking *ngIf="showBookingForm" (closeForm)="closeBookingForm()">
+</app-create-booking>
+
+<app-flight-details
+  *ngIf="showFlight"
+  [selectedFlight]="selectedFlight"
+  (closePopup)="hideFlightDetails()"
+></app-flight-details>
+
+<section class="booking">
+  <h2>Bookings</h2>
+  <button class="create-btn" (click)="closeBookingForm()">
+    <div class="button-content">
+      <span>Create Booking</span>
+    </div>
+  </button>
+  <table>
+    <thead>
+      <tr>
+        <th>Booking ID</th>
+        <th>Flight ID</th>
+        <th>Passenger Email</th>
+        <th>Seats</th>
+        <th>Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let booking of bookings">
+        <tr>
+          <td>{{ booking.bookingNumber }}</td>
+          <td class="flight" (click)="showFlightDetails(booking.flight)">
+            {{ booking.flight.flightId }}
+          </td>
+          <td>{{ booking.passenger.userEmail }}</td>
+          <td>{{ booking.bookedSeats }}</td>
+          <td>{{ booking.bookingAmount }}</td>
+          <td>
+            <button
+              class="delete-btn"
+              (click)="
+                deleteBooking(booking.passenger.userId, booking.bookingNumber)
+              "
+            >
+              <img
+                src="assets/icons/delete-icon.svg"
+                alt="delete-icon"
+                width="20"
+                height="20"
+              />
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</section>

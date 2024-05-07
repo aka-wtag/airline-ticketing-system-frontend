@@ -9,6 +9,9 @@ import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { ManageAirlinesComponent } from './manage-airlines/manage-airlines.component';
 import { AddEditAirlineComponent } from './manage-airlines/add-edit-airline/add-edit-airline.component';
+import { CreateBookingComponent } from './manage-bookings/create-booking/create-booking.component';
+import { FlightDetailsComponent } from './manage-bookings/flight-details/flight-details.component';
+import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { AddEditAirlineComponent } from './manage-airlines/add-edit-airline/add-
     AddFlightComponent,
     ManageAirlinesComponent,
     AddEditAirlineComponent,
+    CreateBookingComponent,
+    FlightDetailsComponent,
+    ManageBookingsComponent
   ],
   imports: [CommonModule, AdminPanelRoutingModule, ReactiveFormsModule],
 })

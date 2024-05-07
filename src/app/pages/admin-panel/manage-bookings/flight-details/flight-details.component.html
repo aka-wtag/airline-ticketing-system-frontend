@@ -1,0 +1,38 @@
+<div class="overlay">
+  <div class="popup">
+    <div class="top">
+      <h2>Flight Details</h2>
+      <button class="close" (click)="closeFlightDetails()">&times;</button>
+    </div>
+    <div class="content">
+      <section class="container">
+        <div class="detail">
+          <div class="label">Source:</div>
+          <div class="value">{{ selectedFlight.departureLocation }}</div>
+        </div>
+        <div class="detail">
+          <div class="label">Destination:</div>
+          <div class="value">{{ selectedFlight.arrivalLocation }}</div>
+        </div>
+        <div class="detail">
+          <div class="label">Departure:</div>
+          <div class="value">
+            {{ selectedFlight.departureDate | date : "dd-MM-yyyy" }},
+            {{ selectedFlight.departureTime }}
+          </div>
+        </div>
+        <div class="detail">
+          <div class="label">Arrival:</div>
+          <div class="value">
+            {{ selectedFlight.arrivalDate | date : "dd-MM-yyyy" }},
+            {{ selectedFlight.arrivalTime }}
+          </div>
+        </div>
+        <div class="detail">
+          <div class="label">Fare:</div>
+          <div class="value">{{ selectedFlight.fare }}</div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
