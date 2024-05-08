@@ -13,7 +13,11 @@ export class AuthService {
   authenticatedUser: BehaviorSubject<User | null> =
     new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient, private jwtService: JwtService) {
+  constructor(
+    private http: HttpClient,
+    private jwtService: JwtService,
+    private router: Router
+  ) {
     if (this.jwtService.getToken()) {
       this.updateAuthenticatedUser(
         this.jwtService.getUserFromToken(this.jwtService.getToken())
@@ -73,6 +77,8 @@ export class AuthService {
   removeAuthenticatedUser() {
     this.updateAuthenticatedUser(null);
     this.jwtService.removeToken();
+
+    this.router.navigate(['/login']);
   }
 
   getUserId(): number | undefined {
