@@ -23,17 +23,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   flights: Flight[] = [];
 
   showEditFlightForm: boolean = false;
-  selectedFlight: Flight | null | undefined;
+  selectedFlight: Flight | undefined;
 
   passengerSubscription: Subscription | undefined;
   flightSubscription: Subscription | undefined;
   airlineSubscription: Subscription | undefined;
-
+  
   editIcon = EDIT_ICON;
   deleteIcon = DELETE_ICON;
-
+  
   iconWidth = ICON_WIDTH;
-  iconHeight =ICON_HEIGHT;
+  iconHeight = ICON_HEIGHT;
+  
+  isConfirmationModalOpen: boolean = false;
 
   constructor(
     private passengerService: PassengerService,
@@ -85,7 +87,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   closeEditFlightForm() {
     this.showEditFlightForm = false;
-    this.selectedFlight = null;
   }
 
   getFlightsOnSuccess() {
@@ -108,6 +109,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.toastService.show(err, false);
       },
     });
+  }
+
+  openConfirmationModal(flight: Flight) {
+    this.selectedFlight = flight;
+    this.isConfirmationModalOpen = true;
+  }
+
+  closeConfirmationModal(confirmed: boolean) {
+    this.isConfirmationModalOpen = false;
+    if (confirmed) {
+      this.deleteFlight(this.selectedFlight!.flightId);
+    }
+  }
+
+  onDeleteConfirmation(confirmed: boolean) {
+    this.closeConfirmationModal(confirmed);
   }
 
   ngOnDestroy(): void {

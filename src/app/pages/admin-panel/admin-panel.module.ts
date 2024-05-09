@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditFlightComponent } from './dashboard/edit-flight/edit-flight.component';
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
+import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { AdminPanelRoutingModule } from './admin-panel-routing.module';
     HeaderComponent,
     DashboardComponent,
     EditFlightComponent,
+    ConfirmationModalComponent
   ],
   imports: [CommonModule, AdminPanelRoutingModule, ReactiveFormsModule],
 })

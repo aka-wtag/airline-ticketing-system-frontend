@@ -8,6 +8,7 @@ import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.compone
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 import { PassengerPageComponent } from './pages/passenger-page/passenger-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
