@@ -81,7 +81,7 @@
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  background: var(--var-light-blue-color);
+  background: var(--var-blue-color);
 }
 
 .form button:hover {
