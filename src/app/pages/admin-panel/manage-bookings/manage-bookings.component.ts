@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Booking } from 'src/app/core/interface/booking';
 import { Flight } from 'src/app/core/interface/flight';
 import { BookingService } from 'src/app/core/service/booking.service';
@@ -17,17 +18,28 @@ export class ManageBookingsComponent implements OnInit {
 
   showBookingForm: boolean = false;
 
+  bookingSubscription: Subscription | undefined;
+
   constructor(
     private bookingService: BookingService,
     private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
-    this.bookingService.flights$.subscribe((data) => {
-      this.bookings = data;
-    });
+    this.getBookings();
+  }
 
-    this.bookingService.getAllBookings().subscribe();
+  getBookings() {
+    this.bookingSubscription = this.bookingService
+      .getAllBookings()
+      .subscribe({
+        next: (data) => {
+          this.bookings = data as Booking[];
+        },
+        error: (err) => {
+          this.toastService.show(err, false);
+        },
+      });
   }
 
   showFlightDetails(flight: any) {
@@ -52,5 +64,9 @@ export class ManageBookingsComponent implements OnInit {
 
   closeBookingForm() {
     this.showBookingForm = !this.showBookingForm;
+  }
+
+  getAllBookingsOnSuccess(){
+    this.getBookings()
   }
 }

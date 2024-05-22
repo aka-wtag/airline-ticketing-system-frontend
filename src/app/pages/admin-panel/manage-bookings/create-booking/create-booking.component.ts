@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Flight } from 'src/app/core/interface/flight';
 import { Passenger } from 'src/app/core/interface/passenger';
 import { BookingService } from 'src/app/core/service/booking.service';
@@ -17,9 +18,14 @@ export class CreateBookingComponent implements OnInit {
 
   @Output()
   closeForm: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output()
+  bookingSuccess: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   flights: Flight[] = [];
   passengers: Passenger[] = [];
+
+  passengerSubscription: Subscription | undefined;
+  flightSubscription: Subscription | undefined;
 
   constructor(
     private flightService: FlightService,
@@ -38,17 +44,32 @@ export class CreateBookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.flightService.flights$.subscribe((data) => {
-      this.flights = data;
+    this.getPassengers();
+    this.getFlights();
+  }
+
+  getPassengers() {
+    this.passengerSubscription = this.passengerService
+      .getAllPassengers()
+      .subscribe({
+        next: (data) => {
+          this.passengers = data as Passenger[];
+        },
+        error: (err) => {
+          this.toastService.show(err, false);
+        },
+      });
+  }
+
+  getFlights() {
+    this.passengerSubscription = this.flightService.getAllFlights().subscribe({
+      next: (data) => {
+        this.flights = data as Flight[];
+      },
+      error: (err) => {
+        this.toastService.show(err, false);
+      },
     });
-
-    this.flightService.getAllFlights().subscribe();
-
-    this.passengerService.passengers$.subscribe((data) => {
-      this.passengers = data;
-    });
-
-    this.passengerService.getAllPassengers().subscribe();
   }
 
   onCloseForm() {
@@ -60,18 +81,18 @@ export class CreateBookingComponent implements OnInit {
       flightId: this.bookingForm.value['flightId'],
       bookedSeats: this.bookingForm.value['bookedSeats'],
     };
-    console.log(this.bookingForm.value);
     this.bookingService
       .createBooking(this.bookingForm.value['passengerId'], requestBody)
       .subscribe({
         next: () => {
           this.toastService.show('Booking added', true);
+          this.bookingSuccess.emit();
         },
         error: (err) => {
           this.toastService.show(err, false);
         },
         complete: () => {
-          this.closeForm.emit(false);
+          this.closeForm.emit();
         },
       });
   }

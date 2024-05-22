@@ -5,6 +5,7 @@
   *ngIf="showFlight"
   [selectedFlight]="selectedFlight"
   (closePopup)="hideFlightDetails()"
+  (bookingSuccess)="getAllBookingsOnSuccess()"
 ></app-flight-details>
 
 <section class="booking">
