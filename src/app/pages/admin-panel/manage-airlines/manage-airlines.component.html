@@ -1,6 +1,7 @@
 <app-edit-airline
   *ngIf="showEditAirlineForm"
   (closeForm)="closeEditAirlineForm()"
+  (success)="getAirlinesOnSuccess()"
   [selectedAirline]="selectedAirline"
   [editMode]="editMode"
 >
