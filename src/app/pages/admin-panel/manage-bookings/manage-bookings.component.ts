@@ -20,6 +20,10 @@ export class ManageBookingsComponent implements OnInit {
 
   bookingSubscription: Subscription | undefined;
 
+  isConfirmationModalOpen: boolean = false;
+
+  selectedBooking: Booking | undefined;
+
   constructor(
     private bookingService: BookingService,
     private toastService: ToastService
@@ -30,16 +34,14 @@ export class ManageBookingsComponent implements OnInit {
   }
 
   getBookings() {
-    this.bookingSubscription = this.bookingService
-      .getAllBookings()
-      .subscribe({
-        next: (data) => {
-          this.bookings = data as Booking[];
-        },
-        error: (err) => {
-          this.toastService.show(err, false);
-        },
-      });
+    this.bookingSubscription = this.bookingService.getAllBookings().subscribe({
+      next: (data) => {
+        this.bookings = data as Booking[];
+      },
+      error: (err) => {
+        this.toastService.show(err, false);
+      },
+    });
   }
 
   showFlightDetails(flight: any) {
@@ -54,6 +56,8 @@ export class ManageBookingsComponent implements OnInit {
   deleteBooking(passengerId: number, flightId: number) {
     this.bookingService.deleteBooking(passengerId, flightId).subscribe({
       next: () => {
+        this.getBookings();
+
         this.toastService.show('Booking deleted', true);
       },
       error: (err) => {
@@ -66,7 +70,26 @@ export class ManageBookingsComponent implements OnInit {
     this.showBookingForm = !this.showBookingForm;
   }
 
-  getAllBookingsOnSuccess(){
-    this.getBookings()
+  getAllBookingsOnSuccess() {
+    this.getBookings();
+  }
+
+  openConfirmationModal(booking: Booking) {
+    this.selectedBooking = booking;
+    this.isConfirmationModalOpen = true;
+  }
+
+  closeConfirmationModal(confirmed: boolean) {
+    this.isConfirmationModalOpen = false;
+    if (confirmed) {
+      this.deleteBooking(
+        this.selectedBooking!.passenger.userId,
+        this.selectedBooking!.bookingNumber
+      );
+    }
+  }
+
+  onDeleteConfirmation(confirmed: boolean) {
+    this.closeConfirmationModal(confirmed);
   }
 }

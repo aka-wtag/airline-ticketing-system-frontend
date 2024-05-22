@@ -1,12 +1,11 @@
 <app-create-booking *ngIf="showBookingForm" (closeForm)="closeBookingForm()">
 </app-create-booking>
 
-<app-flight-details
-  *ngIf="showFlight"
-  [selectedFlight]="selectedFlight"
-  (closePopup)="hideFlightDetails()"
-  (bookingSuccess)="getAllBookingsOnSuccess()"
-></app-flight-details>
+<app-flight-details *ngIf="showFlight" [selectedFlight]="selectedFlight" (closePopup)="hideFlightDetails()"
+  (bookingSuccess)="getAllBookingsOnSuccess()"></app-flight-details>
+
+<app-confirmation-modal *ngIf="isConfirmationModalOpen"
+  (handleConfirm)="onDeleteConfirmation($event)"></app-confirmation-modal>
 
 <section class="booking">
   <h2>Bookings</h2>
@@ -37,18 +36,10 @@
           <td>{{ booking.bookedSeats }}</td>
           <td>{{ booking.bookingAmount }}</td>
           <td>
-            <button
-              class="delete-btn"
-              (click)="
-                deleteBooking(booking.passenger.userId, booking.bookingNumber)
-              "
-            >
-              <img
-                src="assets/icons/delete-icon.svg"
-                alt="delete-icon"
-                width="20"
-                height="20"
-              />
+            <button class="delete-btn" (click)="
+                openConfirmationModal(booking)
+              ">
+              <img src="assets/icons/delete-icon.svg" alt="delete-icon" width="20" height="20" />
             </button>
           </td>
         </tr>
