@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Airline } from 'src/app/core/interface/airline';
 import { AirlineService } from 'src/app/core/service/airline.service';
 import { FlightService } from 'src/app/core/service/flight.service';
@@ -10,11 +11,13 @@ import { ToastService } from 'src/app/core/service/toast.service';
   templateUrl: './add-flight.component.html',
   styleUrls: ['./add-flight.component.css'],
 })
-export class AddFlightComponent implements OnInit {
+export class AddFlightComponent implements OnInit, OnDestroy {
   flightForm!: FormGroup;
   airlines!: Airline[];
   sources!: string[];
   destinations!: string[];
+
+  airlineSubscription: Subscription | undefined;
 
   constructor(
     private airlineService: AirlineService,
@@ -34,15 +37,24 @@ export class AddFlightComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.airlineService.airlines$.subscribe((data) => {
-      this.airlines = data;
-    });
+    this.getAirlines();
 
     this.airlineService.getAllAirlines().subscribe();
 
     this.sources = ['Dhaka', 'Chittagong', 'Sylhet', 'Florida', 'Toronto'];
 
     this.destinations = ['Dhaka', 'Chittagong', 'Sylhet', 'Florida', 'Toronto'];
+  }
+
+  getAirlines() {
+    this.airlineSubscription = this.airlineService.getAllAirlines().subscribe({
+      next: (data) => {
+        this.airlines = data as Airline[];
+      },
+      error: (err) => {
+        this.toastService.show(err, false);
+      },
+    });
   }
 
   onSubmit() {
@@ -63,5 +75,11 @@ export class AddFlightComponent implements OnInit {
       this.flightForm.get(key)?.errors?.[validatorType] &&
       this.flightForm.get(key)?.touched
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.airlineSubscription) {
+      this.airlineSubscription.unsubscribe();
+    }
   }
 }

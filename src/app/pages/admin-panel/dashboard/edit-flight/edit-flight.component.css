@@ -67,7 +67,7 @@
   margin-top: 1.5rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px solid var(--var-light-gray-color);
+  border: 0.1rem solid var(--var-light-gray-color);
 }
 
 .form button {
@@ -81,7 +81,7 @@
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  background: var(--var-light-blue-color);
+  background: var(--var-blue-color);
 }
 
 .form button:hover {

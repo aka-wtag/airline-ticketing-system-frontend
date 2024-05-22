@@ -18,9 +18,7 @@
         formControlName="password"
         required
       />
-      <small
-        *ngIf="isValid('password', 'required')"
-      >
+      <small *ngIf="isValid('password', 'required')">
         *Password must be provided.
       </small>
     </div>

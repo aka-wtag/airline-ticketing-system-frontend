@@ -1,9 +1,16 @@
 <app-edit-flight
   *ngIf="showEditFlightForm"
   (closeForm)="closeEditFlightForm()"
+  (updateSuccess)="getFlightsOnSuccess()"
   [selectedFlight]="selectedFlight"
+  [airlines]="airlines"
 >
 </app-edit-flight>
+
+<app-confirmation-modal
+  *ngIf="isConfirmationModalOpen"
+  (handleConfirm)="onDeleteConfirmation($event)"
+></app-confirmation-modal>
 
 <div class="container">
   <div class="box">
@@ -58,18 +65,18 @@
           <td>
             <button class="edit-btn" (click)="editFlightForm(flight)">
               <img
-                src="/assets/icons/edit-icon.svg"
+                [src]="editIcon"
                 alt="edit_icon"
-                width="20"
-                height="20"
+                [width]="iconWidth"
+                [height]="iconHeight"
               />
             </button>
-            <button class="edit-btn" (click)="deleteFlight(flight.flightId)">
+            <button class="edit-btn" (click)="openConfirmationModal(flight)">
               <img
-                src="/assets/icons/delete-icon.svg"
+                [src]="deleteIcon"
                 alt="delete_icon"
-                width="20"
-                height="20"
+                [width]="iconWidth"
+                [height]="iconHeight"
               />
             </button>
           </td>

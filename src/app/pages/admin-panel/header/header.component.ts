@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.authService.onLogout().subscribe({next: () => {
       this.authService.removeAuthenticatedUser();
-      this.router.navigate(['/login']);
     }, error: (err) => {
       this.toastService.show(err, false);
     }});
