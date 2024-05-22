@@ -15,6 +15,12 @@ export class PassengerService {
       .pipe(catchError(this.errorHandler));
   }
 
+  deletePassenger(passengerId: number) {
+    return this.http
+      .delete(`${environment.apiUrl}/passengers/${passengerId}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
   private errorHandler(error: HttpErrorResponse) {
     let errorMessage = 'Service not available';
 

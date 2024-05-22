@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { ManageAirlinesComponent } from './manage-airlines/manage-airlines.component';
 import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
+import { ManagePassengersComponent } from './manage-passengers/manage-passengers.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'add-flight', component: AddFlightComponent },
       { path: 'manage-airlines', component: ManageAirlinesComponent },
       { path: 'manage-bookings', component: ManageBookingsComponent },
+      { path: 'manage-passengers', component: ManagePassengersComponent },
     ],
   },
 ];

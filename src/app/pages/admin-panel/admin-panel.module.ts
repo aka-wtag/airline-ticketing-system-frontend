@@ -13,6 +13,7 @@ import { AddEditAirlineComponent } from './manage-airlines/add-edit-airline/add-
 import { CreateBookingComponent } from './manage-bookings/create-booking/create-booking.component';
 import { FlightDetailsComponent } from './manage-bookings/flight-details/flight-details.component';
 import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
+import { ManagePassengersComponent } from './manage-passengers/manage-passengers.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ManageBookingsComponent } from './manage-bookings/manage-bookings.compo
     AddEditAirlineComponent,
     CreateBookingComponent,
     FlightDetailsComponent,
-    ManageBookingsComponent
+    ManageBookingsComponent,
+    ManagePassengersComponent
   ],
   imports: [CommonModule, AdminPanelRoutingModule, ReactiveFormsModule],
 })
