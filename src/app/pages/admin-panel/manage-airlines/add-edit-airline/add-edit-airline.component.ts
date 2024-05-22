@@ -12,11 +12,13 @@ import { ToastService } from 'src/app/core/service/toast.service';
 export class AddEditAirlineComponent implements OnInit {
   airlineForm: FormGroup;
 
-  @Input() selectedAirline: Airline | null = null;
+  @Input() selectedAirline: Airline | undefined | null = null;
   @Input() editMode!: boolean;
 
   @Output()
   closeForm: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output()
+  success: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private airlineService: AirlineService,
@@ -43,7 +45,7 @@ export class AddEditAirlineComponent implements OnInit {
   }
 
   onCloseForm() {
-    this.closeForm.emit(false);
+    this.closeForm.emit();
   }
 
   onFormSubmitted() {
@@ -53,24 +55,26 @@ export class AddEditAirlineComponent implements OnInit {
         .subscribe({
           next: () => {
             this.toastService.show('Update successful', true);
+            this.success.emit();
           },
-          error: () => {
-            this.toastService.show('Update failed', false);
+          error: (err) => {
+            this.toastService.show(err, false);
           },
           complete: () => {
-            this.closeForm.emit(false);
+            this.closeForm.emit();
           },
         });
     } else {
       this.airlineService.addAirline(this.airlineForm.value).subscribe({
         next: () => {
           this.toastService.show('Airline added', true);
+          this.success.emit();
         },
-        error: () => {
-          this.toastService.show('Airline was not added', false);
+        error: (err) => {
+          this.toastService.show(err, false);
         },
         complete: () => {
-          this.closeForm.emit(false);
+          this.closeForm.emit();
         },
       });
     }
