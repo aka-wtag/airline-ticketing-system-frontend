@@ -7,6 +7,11 @@
 >
 </app-edit-airline>
 
+<app-confirmation-modal
+  *ngIf="isConfirmationModalOpen"
+  (handleConfirm)="onDeleteConfirmation($event)"
+></app-confirmation-modal>
+
 <section class="airline">
   <h2>Airlines</h2>
   <button class="add-btn" (click)="addAirlineForm()">Add Airline</button>
@@ -38,7 +43,7 @@
             </button>
             <button
               class="delete-btn"
-              (click)="deleteAirline(airline.airlineId)"
+              (click)="openConfirmationModal(airline)"
             >
               <img
                 src="../../../assets/icons/delete-icon.svg"

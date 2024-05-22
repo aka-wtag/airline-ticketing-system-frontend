@@ -19,6 +19,8 @@ export class ManageAirlinesComponent implements OnInit {
 
   airlineSubscription: Subscription | undefined;
 
+  isConfirmationModalOpen: boolean = false;
+
   constructor(
     private airlineService: AirlineService,
     private toastService: ToastService
@@ -70,6 +72,22 @@ export class ManageAirlinesComponent implements OnInit {
   addAirlineForm() {
     this.showEditAirlineForm = true;
     this.editMode = false;
+  }
+
+  openConfirmationModal(airline: Airline) {
+    this.selectedAirline = airline;
+    this.isConfirmationModalOpen = true;
+  }
+
+  closeConfirmationModal(confirmed: boolean) {
+    this.isConfirmationModalOpen = false;
+    if (confirmed) {
+      this.deleteAirline(this.selectedAirline!.airlineId);
+    }
+  }
+
+  onDeleteConfirmation(confirmed: boolean) {
+    this.closeConfirmationModal(confirmed);
   }
 
   ngOnDestroy(): void {
