@@ -7,7 +7,6 @@ import { AirlineService } from 'src/app/core/service/airline.service';
 import { FlightService } from 'src/app/core/service/flight.service';
 import { PassengerService } from 'src/app/core/service/passenger.service';
 import { ToastService } from 'src/app/core/service/toast.service';
-
 import { EDIT_ICON } from 'src/app/core/constants/icons';
 import { DELETE_ICON } from 'src/app/core/constants/icons';
 import { ICON_HEIGHT, ICON_WIDTH } from 'src/app/core/constants/variables';
@@ -28,13 +27,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   passengerSubscription: Subscription | undefined;
   flightSubscription: Subscription | undefined;
   airlineSubscription: Subscription | undefined;
-  
+
   editIcon = EDIT_ICON;
   deleteIcon = DELETE_ICON;
-  
+
   iconWidth = ICON_WIDTH;
   iconHeight = ICON_HEIGHT;
-  
+
   isConfirmationModalOpen: boolean = false;
 
   constructor(

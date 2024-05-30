@@ -42,11 +42,7 @@
 
     <div class="form-group">
       <label for="passportNumber">Passport Number:</label>
-      <input
-        type="text"
-        id="passportNumber"
-        formControlName="passengerPassport"
-      />
+      <input type="text" id="passportNumber" formControlName="passengerPassport" />
       <small *ngIf="isValid('passengerPassport', 'required')">
         *Passport number must be provided.
       </small>
