@@ -75,8 +75,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getAirlines() {
     this.airlineSubscription = this.airlineService.getAllAirlines().subscribe({
-      next: (data) => {
-        this.airlines = data as Airline[];
+      next: (data: Airline[]) => {
+        this.airlines = data;
       },
       error: (err) => {
         this.toastService.show(err, false);
