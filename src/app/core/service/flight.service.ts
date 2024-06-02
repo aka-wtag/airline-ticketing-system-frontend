@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { FlightCreateDTo } from '../interface/flightCreateDto';
+import { Flight } from '../interface/flight';
 
 @Injectable({
   providedIn: 'root',
@@ -41,9 +43,9 @@ export class FlightService {
     return throwError(errorMessage);
   }
 
-  createFlight(requestBody: any) {
-    return this.http.post(`${environment.apiUrl}/flights`, requestBody).pipe(
-      catchError(this.errorHandler),
-    );
+  createFlight(requestBody: FlightCreateDTo): Observable<Flight> {
+    return this.http
+      .post<Flight>(`${environment.apiUrl}/flights`, requestBody)
+      .pipe(catchError(this.errorHandler));
   }
 }

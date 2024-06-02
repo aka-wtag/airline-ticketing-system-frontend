@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Airline } from '../interface/airline';
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +10,9 @@ import { environment } from 'src/environments/environment';
 export class AirlineService {
   constructor(private http: HttpClient) {}
 
-  getAllAirlines() {
+  getAllAirlines(): Observable<Airline[]> {
     return this.http
-      .get(`${environment.apiUrl}/airlines`)
+      .get<Airline[]>(`${environment.apiUrl}/airlines`)
       .pipe(catchError(this.errorHandler));
   }
 

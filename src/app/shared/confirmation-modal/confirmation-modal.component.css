@@ -1,46 +1,45 @@
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background-color: var(--var-white-color);
-    padding: 1.25rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
-  }
-  
-  p {
-    margin-bottom: 1.25rem;
-  }
-  
-  .button-container {
-    display: flex;
-  }
-  
-  button {
-    padding: 0.625rem 1.25rem;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    outline: none;
-  }
-  
-  .confirm-button {
-    background-color: var(--var-green-color);
-    color: var(--var-white-color);
-  }
-  
-  .cancel-button {
-    background-color: var(--var-red-color);
-    color: var(--var-white-color);
-    margin-left: 0.625rem;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: var(--var-white-color);
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
+}
+
+p {
+  margin-bottom: 1.25rem;
+}
+
+.button-container {
+  display: flex;
+}
+
+button {
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.confirm-button {
+  background-color: var(--var-green-color);
+  color: var(--var-white-color);
+}
+
+.cancel-button {
+  background-color: var(--var-red-color);
+  color: var(--var-white-color);
+  margin-left: 0.625rem;
+}
