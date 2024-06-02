@@ -2,7 +2,7 @@
 </app-create-booking>
 
 <app-flight-details *ngIf="showFlight" [selectedFlight]="selectedFlight" (closePopup)="hideFlightDetails()"
-  (bookingSuccess)="getAllBookingsOnSuccess()"></app-flight-details>
+  (bookingSuccess)="getBookings()"></app-flight-details>
 
 <app-confirmation-modal *ngIf="isConfirmationModalOpen"
   (handleConfirm)="onDeleteConfirmation($event)"></app-confirmation-modal>

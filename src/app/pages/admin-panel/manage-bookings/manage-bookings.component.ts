@@ -35,8 +35,8 @@ export class ManageBookingsComponent implements OnInit {
 
   getBookings() {
     this.bookingSubscription = this.bookingService.getAllBookings().subscribe({
-      next: (data) => {
-        this.bookings = data as Booking[];
+      next: (data: Booking[]) => {
+        this.bookings = data;
       },
       error: (err) => {
         this.toastService.show(err, false);
@@ -53,7 +53,7 @@ export class ManageBookingsComponent implements OnInit {
     this.showFlight = false;
   }
 
-  deleteBooking(passengerId: number, flightId: number) {
+  deleteBooking(passengerId: number, flightId: number): void {
     this.bookingService.deleteBooking(passengerId, flightId).subscribe({
       next: () => {
         this.getBookings();
@@ -69,17 +69,13 @@ export class ManageBookingsComponent implements OnInit {
   closeBookingForm() {
     this.showBookingForm = !this.showBookingForm;
   }
-
-  getAllBookingsOnSuccess() {
-    this.getBookings();
-  }
-
+  
   openConfirmationModal(booking: Booking) {
     this.selectedBooking = booking;
     this.isConfirmationModalOpen = true;
   }
 
-  closeConfirmationModal(confirmed: boolean) {
+  closeConfirmationModal(confirmed: boolean): void {
     this.isConfirmationModalOpen = false;
     if (confirmed) {
       this.deleteBooking(
@@ -89,7 +85,7 @@ export class ManageBookingsComponent implements OnInit {
     }
   }
 
-  onDeleteConfirmation(confirmed: boolean) {
+  onDeleteConfirmation(confirmed: boolean): void {
     this.closeConfirmationModal(confirmed);
   }
 }
