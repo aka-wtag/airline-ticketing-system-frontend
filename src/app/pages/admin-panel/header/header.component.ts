@@ -9,15 +9,22 @@ import { ToastService } from 'src/app/core/service/toast.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router, private toastService: ToastService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {}
 
   onLogout() {
-    this.authService.onLogout().subscribe({next: () => {
-      this.authService.removeAuthenticatedUser();
-    }, error: (err) => {
-      this.toastService.show(err, false);
-    }});
+    this.authService.onLogout().subscribe({
+      next: () => {
+        this.authService.removeAuthenticatedUser();
+      },
+      error: (err) => {
+        this.toastService.show(err, false);
+      },
+    });
   }
 }

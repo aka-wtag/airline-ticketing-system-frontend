@@ -16,7 +16,7 @@ import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/co
     DashboardComponent,
     EditFlightComponent,
     AddFlightComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
   ],
   imports: [CommonModule, AdminPanelRoutingModule, ReactiveFormsModule],
 })
