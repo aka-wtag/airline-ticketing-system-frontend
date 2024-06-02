@@ -12,12 +12,7 @@
 
     <div class="form-group">
       <label for="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        required
-      />
+      <input type="password" id="password" formControlName="password" required />
       <small *ngIf="isValid('password', 'required')">
         *Password must be provided.
       </small>
