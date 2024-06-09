@@ -1,0 +1,58 @@
+<div class="registration-container">
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <h2>User Registration</h2>
+    <div class="form-group">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" formControlName="userFullName" />
+      <small *ngIf="isValid('userFullName', 'required')">
+        *Full name must be provided.
+      </small>
+      <small *ngIf="isValid('userFullName', 'minlength')">
+        *Name is too short.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" formControlName="userPassword" />
+      <small *ngIf="isValid('userPassword', 'required')">
+        *Password must be provided.
+      </small>
+      <small *ngIf="isValid('userPassword', 'minlength')">
+        *Password is too short.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="userEmail" />
+      <small *ngIf="isValid('userEmail', 'required')">
+        *Email must be provided.
+      </small>
+      <small *ngIf="isValid('userEmail', 'pattern')"> *Email not valid. </small>
+    </div>
+
+    <div class="form-group">
+      <label for="contact">Contact:</label>
+      <input type="text" id="contact" formControlName="userContact" />
+      <small *ngIf="isValid('userContact', 'required')">
+        *Contact must be provided.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="passportNumber">Passport Number:</label>
+      <input
+        type="text"
+        id="passportNumber"
+        formControlName="passengerPassport"
+      />
+      <small *ngIf="isValid('passengerPassport', 'required')">
+        *Passport number must be provided.
+      </small>
+    </div>
+    <button type="submit" [disabled]="registrationForm.invalid">
+      Register
+    </button>
+  </form>
+</div>

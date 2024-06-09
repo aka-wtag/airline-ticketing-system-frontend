@@ -1,0 +1,37 @@
+.message {
+  min-width: 21.875rem;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 0.313rem;
+  position: fixed;
+  z-index: 1;
+  top: 3.5rem;
+  right: 2.5rem;
+  animation: fadein 0.5s;
+  color: #fff;
+  font-weight: bold;
+}
+
+@keyframes fadein {
+  from {
+    right: 0;
+    opacity: 0;
+  }
+
+  to {
+    right: 2.5rem;
+    opacity: 1;
+  }
+}
+
+.error {
+  background-color: var(--var-red-color);
+}
+
+.success {
+  background-color: var(--var-green-color);
+}
+
+.icon {
+  margin-right: 0.5rem;
+}

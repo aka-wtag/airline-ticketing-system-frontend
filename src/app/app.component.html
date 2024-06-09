@@ -1,0 +1,8 @@
+<app-toast
+  *ngIf="getToastService().toastState | async as toast"
+  [message]="toast.message"
+  [success]="toast.success"
+>
+</app-toast>
+
+<router-outlet></router-outlet>

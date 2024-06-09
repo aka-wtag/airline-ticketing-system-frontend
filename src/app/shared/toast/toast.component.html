@@ -1,0 +1,7 @@
+<div class="message" [ngClass]="{ success: success, error: !success }">
+  <i
+    class="icon"
+    [ngClass]="success ? 'fa-solid fa-check' : 'fa-solid fa-xmark'"
+  ></i>
+  {{ message }}
+</div>
