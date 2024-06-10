@@ -3,10 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { PassengerPageComponent } from './pages/passenger-page/passenger-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
-import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 import { PassengerGuard } from './core/guards/passenger.guard';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
-import { DashboardComponent } from './pages/admin-panel/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -23,6 +21,7 @@ const routes: Routes = [
   },
   {
     path: '',
+    canLoad: [AuthGuard, AdminGuard],
     loadChildren: () =>
       import('./pages/admin-panel/admin-panel.module').then(
         (m) => m.AdminPanelModule
