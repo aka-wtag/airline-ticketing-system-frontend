@@ -5,6 +5,9 @@ import {
   RouterStateSnapshot,
   UrlTree,
   Router,
+  CanLoad,
+  Route,
+  UrlSegment,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../service/auth.service';
@@ -12,8 +15,23 @@ import { AuthService } from '../service/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AdminGuard implements CanActivate {
+export class AdminGuard implements CanActivate, CanLoad {
   constructor(private router: Router, private authService: AuthService) {}
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]
+  ):
+    | boolean
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
+    if (this.authService.getUserType() === 'Admin') {
+      return true;
+    } else {
+      this.router.navigate(['/unauthorized']);
+      return false;
+    }
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
