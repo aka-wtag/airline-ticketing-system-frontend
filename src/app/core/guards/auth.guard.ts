@@ -5,6 +5,9 @@ import {
   RouterStateSnapshot,
   UrlTree,
   Router,
+  CanLoad,
+  Route,
+  UrlSegment,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../service/auth.service';
@@ -13,7 +16,7 @@ import { User } from '../interface/user';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanLoad {
   private user!: User | null;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -21,20 +24,33 @@ export class AuthGuard implements CanActivate {
       this.user = response;
     });
   }
+  private checkAuthentication(): boolean | UrlTree {
+    if (this.user) {
+      return true;
+    } else {
+      return this.router.createUrlTree(['/login']);
+    }
+  }
+
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]
+  ):
+    | boolean
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
+    return this.checkAuthentication();
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
     | boolean
-    | UrlTree {
-    if (this.user) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
+    return this.checkAuthentication();
   }
 }

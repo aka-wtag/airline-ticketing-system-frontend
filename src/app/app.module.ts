@@ -6,18 +6,23 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastComponent } from './shared/toast/toast.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
-import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 import { PassengerPageComponent } from './pages/passenger-page/passenger-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToastComponent,
-    AdminPanelComponent,
     PassengerPageComponent,
     UnauthorizedComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
