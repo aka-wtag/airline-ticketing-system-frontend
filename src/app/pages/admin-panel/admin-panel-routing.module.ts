@@ -6,6 +6,7 @@ import { AdminGuard } from 'src/app/core/guards/admin.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { ManageAirlinesComponent } from './manage-airlines/manage-airlines.component';
+import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'add-flight', component: AddFlightComponent },
       { path: 'manage-airlines', component: ManageAirlinesComponent },
+      { path: 'manage-bookings', component: ManageBookingsComponent },
     ],
   },
 ];
