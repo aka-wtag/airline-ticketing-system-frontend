@@ -48,7 +48,7 @@ export class AddEditAirlineComponent implements OnInit {
     this.closeForm.emit();
   }
 
-  onFormSubmitted() {
+  onFormSubmitted(): void {
     if (this.editMode && this.selectedAirline) {
       this.airlineService
         .updateAirline(this.airlineForm.value, this.selectedAirline.airlineId)
