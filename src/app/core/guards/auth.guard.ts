@@ -24,6 +24,14 @@ export class AuthGuard implements CanActivate, CanLoad {
       this.user = response;
     });
   }
+  private checkAuthentication(): boolean | UrlTree {
+    if (this.user) {
+      return true;
+    } else {
+      return this.router.createUrlTree(['/login']);
+    }
+  }
+
   canLoad(
     route: Route,
     segments: UrlSegment[]
@@ -32,27 +40,17 @@ export class AuthGuard implements CanActivate, CanLoad {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    if (this.user) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
+    return this.checkAuthentication();
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
     | boolean
-    | UrlTree {
-    if (this.user) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
+    return this.checkAuthentication();
   }
 }

@@ -17,6 +17,15 @@ import { AuthService } from '../service/auth.service';
 })
 export class PassengerGuard implements CanActivate, CanLoad {
   constructor(private router: Router, private authService: AuthService) {}
+  
+  private checkPassenger(): boolean | UrlTree {
+    if (this.authService.getUserType() === 'Passenger') {
+      return true;
+    } else {
+      return this.router.createUrlTree(['/unauthorized']);
+    }
+  }
+
   canLoad(
     route: Route,
     segments: UrlSegment[]
@@ -25,27 +34,17 @@ export class PassengerGuard implements CanActivate, CanLoad {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    if (this.authService.getUserType() === 'Passenger') {
-      return true;
-    } else {
-      this.router.navigate(['/unauthorized']);
-      return false;
-    }
+    return this.checkPassenger();
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
     | boolean
-    | UrlTree {
-    if (this.authService.getUserType() === 'Passenger') {
-      return true;
-    } else {
-      this.router.navigate(['/unauthorized']);
-      return false;
-    }
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
+    return this.checkPassenger();
   }
 }
