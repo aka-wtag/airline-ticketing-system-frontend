@@ -15,11 +15,6 @@ import { Booking } from '../interface/booking';
   providedIn: 'root',
 })
 export class BookingService {
-  private bookingsSubject: BehaviorSubject<Booking[]> = new BehaviorSubject<
-    Booking[]
-  >([]);
-  public flights$: Observable<Booking[]> = this.bookingsSubject.asObservable();
-
   constructor(private http: HttpClient) {}
 
   getAllBookings(): Observable<Booking[]> {
