@@ -39,7 +39,7 @@ export class ManageAirlinesComponent implements OnInit, OnDestroy {
     this.getAirlines();
   }
 
-  getAirlines() {
+  getAirlines(): void {
     this.airlineService
       .getAllAirlines()
       .pipe(takeUntil(this.destroy$))
@@ -53,22 +53,22 @@ export class ManageAirlinesComponent implements OnInit, OnDestroy {
       });
   }
 
-  closeEditAirlineForm() {
+  closeEditAirlineForm(): void {
     this.showEditAirlineForm = false;
     this.selectedAirline = null;
   }
 
-  getAirlinesOnSuccess() {
+  getAirlinesOnSuccess(): void {
     this.getAirlines();
   }
 
-  editAirlineForm(airline: any) {
+  editAirlineForm(airline: Airline): void {
     this.showEditAirlineForm = true;
     this.selectedAirline = airline;
     this.editMode = true;
   }
 
-  deleteAirline(airlineId: number) {
+  deleteAirline(airlineId: number): void {
     this.airlineService
       .deleteAirline(airlineId)
       .pipe(takeUntil(this.destroy$))
@@ -83,17 +83,17 @@ export class ManageAirlinesComponent implements OnInit, OnDestroy {
       });
   }
 
-  addAirlineForm() {
+  addAirlineForm(): void {
     this.showEditAirlineForm = true;
     this.editMode = false;
   }
 
-  openConfirmationModal(airline: Airline) {
+  openConfirmationModal(airline: Airline): void {
     this.selectedAirline = airline;
     this.isConfirmationModalOpen = true;
   }
 
-  closeConfirmationModal(confirmed: boolean) {
+  closeConfirmationModal(confirmed: boolean): void {
     this.isConfirmationModalOpen = false;
     if (confirmed) {
       this.deleteAirline(this.selectedAirline!.airlineId);

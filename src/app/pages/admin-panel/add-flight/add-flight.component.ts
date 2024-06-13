@@ -17,7 +17,7 @@ export class AddFlightComponent implements OnInit, OnDestroy {
   sources!: string[];
   destinations!: string[];
 
-  airlineSubscription: Subscription | undefined;
+  airlineSubscription!: Subscription;
 
   constructor(
     private airlineService: AirlineService,
@@ -78,8 +78,6 @@ export class AddFlightComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.airlineSubscription) {
-      this.airlineSubscription.unsubscribe();
-    }
+    this.airlineSubscription.unsubscribe();
   }
 }
