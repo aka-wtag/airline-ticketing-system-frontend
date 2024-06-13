@@ -1,0 +1,55 @@
+<div class="overlay">
+  <div class="popup">
+    <h2>{{ editMode ? "Update" : "Add" }} Airline</h2>
+    <button class="close" (click)="onCloseForm()">&times;</button>
+    <div class="content">
+      <section class="container">
+        <form
+          class="form"
+          [formGroup]="airlineForm"
+          (ngSubmit)="onFormSubmitted()"
+        >
+          <ng-container *ngIf="editMode">
+            <div class="input-box">
+              <label for="airlineModel">Model*</label>
+              <input
+                type="text"
+                id="airlineModel"
+                formControlName="airlineModel"
+              />
+              <small *ngIf="isValid('airlineModel', 'required')">
+                *Model must be provided
+              </small>
+            </div>
+          </ng-container>
+          <div class="input-box">
+            <label for="airlineName">Airline Name*</label>
+            <input type="text" id="airlineName" formControlName="airlineName" />
+            <small *ngIf="isValid('airlineName', 'required')">
+              *Airline name must be provided
+            </small>
+          </div>
+          <div class="input-box">
+            <label for="numberOfSeats">Seats*</label>
+            <input
+              type="number"
+              id="numberOfSeats"
+              formControlName="numberOfSeats"
+            />
+            <small
+              *ngIf="
+                isValid('numberOfSeats', 'required') ||
+                isValid('numberOfSeats', 'min')
+              "
+            >
+              *Number of seats must be provided and should be greater than 0
+            </small>
+          </div>
+          <button type="submit" [disabled]="isFormValid()">
+            {{ editMode ? "Update" : "Add" }}
+          </button>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

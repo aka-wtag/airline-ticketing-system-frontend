@@ -8,6 +8,8 @@ import { EditFlightComponent } from './dashboard/edit-flight/edit-flight.compone
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { ManageAirlinesComponent } from './manage-airlines/manage-airlines.component';
+import { AddEditAirlineComponent } from './manage-airlines/add-edit-airline/add-edit-airline.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/co
     EditFlightComponent,
     AddFlightComponent,
     ConfirmationModalComponent,
+    ManageAirlinesComponent,
+    AddEditAirlineComponent,
   ],
   imports: [CommonModule, AdminPanelRoutingModule, ReactiveFormsModule],
 })

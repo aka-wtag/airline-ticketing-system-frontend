@@ -1,0 +1,60 @@
+<app-edit-airline
+  *ngIf="showEditAirlineForm"
+  (closeForm)="closeEditAirlineForm()"
+  (success)="getAirlinesOnSuccess()"
+  [selectedAirline]="selectedAirline"
+  [editMode]="editMode"
+>
+</app-edit-airline>
+
+<app-confirmation-modal
+  *ngIf="isConfirmationModalOpen"
+  (handleConfirm)="onDeleteConfirmation($event)"
+></app-confirmation-modal>
+
+<section class="airline">
+  <h2>Airlines</h2>
+  <button class="add-btn" (click)="addAirlineForm()">Add Airline</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Airline ID</th>
+        <th>Model</th>
+        <th>Airline Name</th>
+        <th>Seats</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let airline of airlines">
+        <tr>
+          <td>{{ airline.airlineId }}</td>
+          <td>{{ airline.airlineModel }}</td>
+          <td>{{ airline.airlineName }}</td>
+          <td>{{ airline.numberOfSeats }}</td>
+          <td>
+            <button class="edit-btn" (click)="editAirlineForm(airline)">
+              <img
+                [src]="editIcon"
+                alt="edit_icon"
+                [width]="iconWidth"
+                [height]="iconHeight"
+              />
+            </button>
+            <button
+              class="delete-btn"
+              (click)="openConfirmationModal(airline)"
+            >
+              <img
+                [src]="deleteIcon"
+                alt="delete_icon"
+                [width]="iconWidth"
+                [height]="iconHeight"
+              />
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</section>
