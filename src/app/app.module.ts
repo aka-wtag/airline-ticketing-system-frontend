@@ -6,15 +6,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastComponent } from './shared/toast/toast.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { AuthInterceptor } from './core/interceptor/auth.interceptor';
-import { PassengerPageComponent } from './pages/passenger-page/passenger-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToastComponent,
-    PassengerPageComponent,
     UnauthorizedComponent,
   ],
   imports: [

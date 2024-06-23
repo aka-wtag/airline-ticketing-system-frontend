@@ -32,10 +32,10 @@ export class LoginComponent implements OnInit {
     this.authService.onLogin(this.loginForm.value).subscribe({
       next: () => {
         if (this.authService.getUserType() === 'Admin') {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/admin/dashboard']);
           return;
         }
-        this.router.navigate(['/passenger']);
+        this.router.navigate(['/flights']);
       },
       error: (err) => {
         this.toastService.show(err, false);

@@ -1,0 +1,47 @@
+<app-book-ticket *ngIf="showBookingForm" (closeForm)="closeBookingForm()" [passengerId]="authenticatedUser.id"
+    [flightId]="selectedFlightId">
+</app-book-ticket>
+
+<div class="container">
+    <h2>Flights</h2>
+    <form class="search-container" [formGroup]="searchFlightForm" (ngSubmit)="onSearch()">
+        <input type="text" placeholder="From City" class="search-input" formControlName="departureLocation" />
+        <input type="text" placeholder="To City" class="search-input" formControlName="arrivalLocation" />
+        <input type="date" class="search-input" formControlName="departureDate" />
+        <button class="search-button" type="submit">Search</button>
+    </form>
+    <table class="flight-table">
+        <thead>
+            <tr>
+                <th>Flight No.</th>
+                <th>Airline Name</th>
+                <th>From City</th>
+                <th>To City</th>
+                <th>Deprature Date</th>
+                <th>Departure Time</th>
+                <th>Arrival Date</th>
+                <th>Arrival Time</th>
+                <th>Ticket Price</th>
+                <th>Avaiable Seats</th>
+                <th>Book</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let flight of flights">
+                <tr>
+                    <td>{{ flight.flightId }}</td>
+                    <td>{{ flight.airline.airlineName }}</td>
+                    <td>{{ flight.departureLocation }}</td>
+                    <td>{{ flight.arrivalLocation }}</td>
+                    <td>{{ flight.departureDate }}</td>
+                    <td>{{ flight.departureTime }}</td>
+                    <td>{{ flight.arrivalDate }}</td>
+                    <td>{{ flight.arrivalTime }}</td>
+                    <td>{{ flight.fare }}</td>
+                    <td>{{ flight.remainingSeats }}</td>
+                    <td><button class="book-button" (click)="handleBookingModal(flight.flightId)">Book</button></td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

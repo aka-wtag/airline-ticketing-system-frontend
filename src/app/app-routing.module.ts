@@ -1,26 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PassengerPageComponent } from './pages/passenger-page/passenger-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
-import { PassengerGuard } from './core/guards/passenger.guard';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () =>
-      import('./pages/authentication/authentication.module').then(
-        (m) => m.AuthenticationModule
-      ),
-  },
-  {
-    path: 'passenger',
-    component: PassengerPageComponent,
-    canActivate: [AuthGuard, PassengerGuard],
-  },
-  {
-    path: '',
+    path: 'admin',
     canLoad: [AuthGuard, AdminGuard],
     loadChildren: () =>
       import('./pages/admin-panel/admin-panel.module').then(
@@ -28,10 +14,18 @@ const routes: Routes = [
       ),
   },
   { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./pages/user-view/user-view.module').then(
+        (m) => m.UserViewModule
+      ),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

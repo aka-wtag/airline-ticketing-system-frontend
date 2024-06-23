@@ -53,4 +53,10 @@ export class BookingService {
       )
       .pipe(catchError(this.errorHandler));
   }
+
+  getPassengerBookings(passengerId: number) {
+    return this.http
+      .get(`${environment.apiUrl}/passengers/${passengerId}/bookings`)
+      .pipe(catchError(this.errorHandler));
+  }
 }

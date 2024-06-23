@@ -1,0 +1,17 @@
+/* unauthorized-page.component.css */
+
+.unauthorized-container {
+    margin: 1.25rem;
+    padding: 1.25rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.3125rem;
+    background-color: #f8f8f8;
+}
+
+.unauthorized-container h1 {
+    color: #333;
+}
+
+.unauthorized-container p {
+    color: #777;
+}

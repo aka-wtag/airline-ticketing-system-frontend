@@ -35,4 +35,16 @@ export class PassengerService {
       .delete<void>(`${environment.apiUrl}/passengers/${passengerId}`)
       .pipe(catchError(this.errorHandler));
   }
+
+  getPassengerDetails(passengerId: number): Observable<Passenger> {
+    return this.http
+      .get<Passenger>(`${environment.apiUrl}/passengers/${passengerId}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  updatePassengerDetails(userDetails: any, passengerId: number): Observable<Passenger> {
+    return this.http
+      .put<Passenger>(`${environment.apiUrl}/passengers/${passengerId}`, userDetails)
+      .pipe(catchError(this.errorHandler));
+  }
 }

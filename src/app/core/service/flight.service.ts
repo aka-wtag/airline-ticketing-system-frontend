@@ -4,16 +4,25 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FlightCreateDTo } from '../interface/flightCreateDto';
 import { Flight } from '../interface/flight';
+import { FlightSearchRequest } from '../interface/flight-search-request';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FlightService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllFlights() {
     return this.http
       .get(`${environment.apiUrl}/flights`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  getSearchedFlights(params: FlightSearchRequest): Observable<Flight[]> {
+    return this.http
+      .get<Flight[]>(
+        `${environment.apiUrl}/flights/searched-flights?departureDate=${params.departureDate}&departureLocation=${params.departureLocation}&arrivalLocation=${params.arrivalLocation}`
+      )
       .pipe(catchError(this.errorHandler));
   }
 

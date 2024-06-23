@@ -25,10 +25,15 @@
   --var-dark-gray-color: #333;
 
   --var-white-color: #fff;
+  --var-pearl-color: #ddd;
   --var-off-white-color: #f9f9f9;
 
   --var-green-color: #4caf50;
   --var-black-color: #000000;
+
+  --primary-color: #007bff;
+  --secondary-color: #f2f2f2;
+  --primary-color-hover: #0056b3;
 }
 
 body {

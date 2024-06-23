@@ -7,13 +7,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditFlightComponent } from './dashboard/edit-flight/edit-flight.component';
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { AddFlightComponent } from './add-flight/add-flight.component';
-import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { ManageAirlinesComponent } from './manage-airlines/manage-airlines.component';
 import { AddEditAirlineComponent } from './manage-airlines/add-edit-airline/add-edit-airline.component';
 import { CreateBookingComponent } from './manage-bookings/create-booking/create-booking.component';
 import { FlightDetailsComponent } from './manage-bookings/flight-details/flight-details.component';
 import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 import { ManagePassengersComponent } from './manage-passengers/manage-passengers.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,6 @@ import { ManagePassengersComponent } from './manage-passengers/manage-passengers
     DashboardComponent,
     EditFlightComponent,
     AddFlightComponent,
-    ConfirmationModalComponent,
     ManageAirlinesComponent,
     AddEditAirlineComponent,
     CreateBookingComponent,
@@ -30,6 +29,6 @@ import { ManagePassengersComponent } from './manage-passengers/manage-passengers
     ManageBookingsComponent,
     ManagePassengersComponent
   ],
-  imports: [CommonModule, AdminPanelRoutingModule, ReactiveFormsModule],
+  imports: [CommonModule, AdminPanelRoutingModule, ReactiveFormsModule, SharedModule],
 })
-export class AdminPanelModule {}
+export class AdminPanelModule { }
