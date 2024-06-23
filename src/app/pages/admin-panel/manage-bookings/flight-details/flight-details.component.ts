@@ -1,19 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Flight } from 'src/app/core/interface/flight';
 
 @Component({
   selector: 'app-flight-details',
   templateUrl: './flight-details.component.html',
   styleUrls: ['./flight-details.component.css'],
 })
-export class FlightDetailsComponent implements OnInit {
-  @Input() selectedFlight: any;
+export class FlightDetailsComponent {
+  @Input() selectedFlight!: Flight;
 
   @Output()
   closePopup: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   closeFlightDetails() {
     this.closePopup.emit(false);

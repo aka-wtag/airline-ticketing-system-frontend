@@ -15,32 +15,15 @@ import { Booking } from '../interface/booking';
   providedIn: 'root',
 })
 export class BookingService {
-  private bookingsSubject: BehaviorSubject<Booking[]> = new BehaviorSubject<
-    Booking[]
-  >([]);
-  public flights$: Observable<Booking[]> = this.bookingsSubject.asObservable();
-
   constructor(private http: HttpClient) {}
 
-  getAllBookings() {
-    return this.http.get(`${environment.apiUrl}/bookings`).pipe(
-      catchError(this.errorHandler),
-      map((response) => {
-        let bookings: Booking[] = [];
-        for (let key in response) {
-          if (response.hasOwnProperty(key)) {
-            bookings.push((response as Record<string, Booking>)[key]);
-          }
-        }
-        return bookings;
-      }),
-      tap((data) => {
-        this.bookingsSubject.next(data);
-      })
-    );
+  getAllBookings(): Observable<Booking[]> {
+    return this.http
+      .get<Booking[]>(`${environment.apiUrl}/bookings`)
+      .pipe(catchError(this.errorHandler));
   }
 
-  private errorHandler(error: HttpErrorResponse) {
+  private errorHandler(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Service not available';
 
     if (error.status >= 400 && error.status < 500) {
@@ -54,23 +37,12 @@ export class BookingService {
     return throwError(errorMessage);
   }
 
-  deleteBooking(passengerId: number, bookingId: number) {
+  deleteBooking(passengerId: number, bookingId: number): Observable<void> {
     return this.http
-      .delete(
+      .delete<void>(
         `${environment.apiUrl}/passengers/${passengerId}/bookings/${bookingId}`
       )
-      .pipe(
-        catchError(this.errorHandler),
-        tap(() => {
-          let bookings: Booking[] = this.bookingsSubject.getValue();
-
-          bookings = bookings.filter(
-            (booking: Booking) => booking.bookingNumber !== bookingId
-          );
-
-          this.bookingsSubject.next(bookings);
-        })
-      );
+      .pipe(catchError(this.errorHandler));
   }
 
   createBooking(passengerId: number, requestBody: any) {
@@ -79,15 +51,6 @@ export class BookingService {
         `${environment.apiUrl}/passengers/${passengerId}/bookings`,
         requestBody
       )
-      .pipe(
-        catchError(this.errorHandler),
-        tap((data) => {
-          let bookings: Booking[] = this.bookingsSubject.getValue();
-
-          bookings.unshift(data as Booking);
-
-          this.bookingsSubject.next(bookings);
-        })
-      );
+      .pipe(catchError(this.errorHandler));
   }
 }

@@ -35,10 +35,10 @@
           <td>
             <button class="edit-btn" (click)="editAirlineForm(airline)">
               <img
-                src="../../../assets/icons/edit-icon.svg"
+                [src]="editIcon"
                 alt="edit_icon"
-                width="20"
-                height="20"
+                [width]="iconWidth"
+                [height]="iconHeight"
               />
             </button>
             <button
@@ -46,10 +46,10 @@
               (click)="openConfirmationModal(airline)"
             >
               <img
-                src="../../../assets/icons/delete-icon.svg"
+                [src]="deleteIcon"
                 alt="delete_icon"
-                width="20"
-                height="20"
+                [width]="iconWidth"
+                [height]="iconHeight"
               />
             </button>
           </td>

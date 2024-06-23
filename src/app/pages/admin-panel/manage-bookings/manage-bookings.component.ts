@@ -14,15 +14,16 @@ export class ManageBookingsComponent implements OnInit {
   bookings: Booking[] = [];
 
   showFlight: boolean = false;
-  selectedFlight: Flight | null = null;
+
+  selectedFlight!: Flight;
+  
+  selectedBooking: Booking | null = null;
 
   showBookingForm: boolean = false;
 
-  bookingSubscription: Subscription | undefined;
+  bookingSubscription!: Subscription;
 
   isConfirmationModalOpen: boolean = false;
-
-  selectedBooking: Booking | undefined;
 
   constructor(
     private bookingService: BookingService,
@@ -33,10 +34,10 @@ export class ManageBookingsComponent implements OnInit {
     this.getBookings();
   }
 
-  getBookings() {
+  getBookings(): void {
     this.bookingSubscription = this.bookingService.getAllBookings().subscribe({
-      next: (data) => {
-        this.bookings = data as Booking[];
+      next: (data: Booking[]) => {
+        this.bookings = data;
       },
       error: (err) => {
         this.toastService.show(err, false);
@@ -44,16 +45,16 @@ export class ManageBookingsComponent implements OnInit {
     });
   }
 
-  showFlightDetails(flight: any) {
+  showFlightDetails(flight: Flight): void {
     this.showFlight = true;
     this.selectedFlight = flight;
   }
 
-  hideFlightDetails() {
+  hideFlightDetails(): void {
     this.showFlight = false;
   }
 
-  deleteBooking(passengerId: number, flightId: number) {
+  deleteBooking(passengerId: number, flightId: number): void {
     this.bookingService.deleteBooking(passengerId, flightId).subscribe({
       next: () => {
         this.getBookings();
@@ -66,20 +67,16 @@ export class ManageBookingsComponent implements OnInit {
     });
   }
 
-  closeBookingForm() {
+  closeBookingForm(): void {
     this.showBookingForm = !this.showBookingForm;
   }
 
-  getAllBookingsOnSuccess() {
-    this.getBookings();
-  }
-
-  openConfirmationModal(booking: Booking) {
+  openConfirmationModal(booking: Booking): void {
     this.selectedBooking = booking;
     this.isConfirmationModalOpen = true;
   }
 
-  closeConfirmationModal(confirmed: boolean) {
+  closeConfirmationModal(confirmed: boolean): void {
     this.isConfirmationModalOpen = false;
     if (confirmed) {
       this.deleteBooking(
@@ -89,7 +86,11 @@ export class ManageBookingsComponent implements OnInit {
     }
   }
 
-  onDeleteConfirmation(confirmed: boolean) {
+  onDeleteConfirmation(confirmed: boolean): void {
     this.closeConfirmationModal(confirmed);
+  }
+
+  onDestroy(): void {
+    this.bookingSubscription.unsubscribe();
   }
 }

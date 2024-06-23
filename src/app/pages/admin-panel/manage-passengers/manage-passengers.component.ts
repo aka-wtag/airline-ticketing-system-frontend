@@ -24,26 +24,21 @@ export class ManagePassengersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getPassengers();
+    this.loadPassengers();
   }
 
-  getPassengers() {
-    this.passengerSubscription = this.passengerService
+  loadPassengers(): void {
+    this.passengerService
       .getAllPassengers()
-      .subscribe({
-        next: (data) => {
-          this.passengers = data as Passenger[];
-        },
-        error: (err) => {
-          this.toastService.show(err, false);
-        },
+      .subscribe((response: Passenger[]) => {
+        this.passengers = response;
       });
   }
 
-  deletePassenger(passengerId: number) {
+  deletePassenger(passengerId: number): void {
     this.passengerService.deletePassenger(passengerId).subscribe({
       next: () => {
-        this.getPassengers();
+        this.loadPassengers();
 
         this.toastService.show('Passenger deleted', true);
       },
@@ -53,19 +48,19 @@ export class ManagePassengersComponent implements OnInit {
     });
   }
 
-  openConfirmationModal(passengerId: number) {
+  openConfirmationModal(passengerId: number): void {
     this.selectedPassengerId = passengerId;
     this.isConfirmationModalOpen = true;
   }
 
-  closeConfirmationModal(confirmed: boolean) {
+  closeConfirmationModal(confirmed: boolean): void {
     this.isConfirmationModalOpen = false;
     if (confirmed) {
       this.deletePassenger(this.selectedPassengerId);
     }
   }
 
-  onDeleteConfirmation(confirmed: boolean) {
+  onDeleteConfirmation(confirmed: boolean): void {
     this.closeConfirmationModal(confirmed);
   }
 }

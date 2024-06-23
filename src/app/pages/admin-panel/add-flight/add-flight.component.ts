@@ -17,7 +17,7 @@ export class AddFlightComponent implements OnInit, OnDestroy {
   sources!: string[];
   destinations!: string[];
 
-  airlineSubscription: Subscription | undefined;
+  airlineSubscription!: Subscription;
 
   constructor(
     private airlineService: AirlineService,
@@ -46,10 +46,10 @@ export class AddFlightComponent implements OnInit, OnDestroy {
     this.destinations = ['Dhaka', 'Chittagong', 'Sylhet', 'Florida', 'Toronto'];
   }
 
-  getAirlines() {
+  getAirlines(): void {
     this.airlineSubscription = this.airlineService.getAllAirlines().subscribe({
-      next: (data) => {
-        this.airlines = data as Airline[];
+      next: (data: Airline[]) => {
+        this.airlines = data;
       },
       error: (err) => {
         this.toastService.show(err, false);
@@ -57,7 +57,7 @@ export class AddFlightComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.flightService.createFlight(this.flightForm.value).subscribe({
       next: () => {
         this.toastService.show('Flight added', true);
@@ -78,8 +78,6 @@ export class AddFlightComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.airlineSubscription) {
-      this.airlineSubscription.unsubscribe();
-    }
+    this.airlineSubscription.unsubscribe();
   }
 }

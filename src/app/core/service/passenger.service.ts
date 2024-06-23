@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Passenger } from '../interface/passenger';
 
 @Injectable({
   providedIn: 'root',
@@ -9,15 +10,9 @@ import { environment } from 'src/environments/environment';
 export class PassengerService {
   constructor(private http: HttpClient) {}
 
-  getAllPassengers() {
+  getAllPassengers(): Observable<Passenger[]> {
     return this.http
-      .get(`${environment.apiUrl}/passengers`)
-      .pipe(catchError(this.errorHandler));
-  }
-
-  deletePassenger(passengerId: number) {
-    return this.http
-      .delete(`${environment.apiUrl}/passengers/${passengerId}`)
+      .get<Passenger[]>(`${environment.apiUrl}/passengers`)
       .pipe(catchError(this.errorHandler));
   }
 
@@ -33,5 +28,11 @@ export class PassengerService {
     }
 
     return throwError(errorMessage);
+  }
+
+  deletePassenger(passengerId: number): Observable<void> {
+    return this.http
+      .delete<void>(`${environment.apiUrl}/passengers/${passengerId}`)
+      .pipe(catchError(this.errorHandler));
   }
 }

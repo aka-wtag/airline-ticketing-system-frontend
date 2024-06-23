@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { DELETE_ICON, EDIT_ICON } from 'src/app/core/constants/icons';
+import { ICON_HEIGHT, ICON_WIDTH } from 'src/app/core/constants/variables';
 import { Airline } from 'src/app/core/interface/airline';
 import { AirlineService } from 'src/app/core/service/airline.service';
 import { ToastService } from 'src/app/core/service/toast.service';
@@ -9,7 +12,7 @@ import { ToastService } from 'src/app/core/service/toast.service';
   templateUrl: './manage-airlines.component.html',
   styleUrls: ['./manage-airlines.component.css'],
 })
-export class ManageAirlinesComponent implements OnInit {
+export class ManageAirlinesComponent implements OnInit, OnDestroy {
   airlines: Airline[] = [];
 
   selectedAirline: Airline | null = null;
@@ -17,9 +20,15 @@ export class ManageAirlinesComponent implements OnInit {
 
   editMode: boolean = false;
 
-  airlineSubscription: Subscription | undefined;
+  private destroy$ = new Subject<void>();
 
   isConfirmationModalOpen: boolean = false;
+
+  editIcon = EDIT_ICON;
+  deleteIcon = DELETE_ICON;
+
+  iconWidth = ICON_WIDTH;
+  iconHeight = ICON_HEIGHT;
 
   constructor(
     private airlineService: AirlineService,
@@ -30,69 +39,73 @@ export class ManageAirlinesComponent implements OnInit {
     this.getAirlines();
   }
 
-  getAirlines() {
-    this.airlineSubscription = this.airlineService.getAllAirlines().subscribe({
-      next: (data) => {
-        this.airlines = data as Airline[];
-      },
-      error: (err) => {
-        this.toastService.show(err, false);
-      },
-    });
+  getAirlines(): void {
+    this.airlineService
+      .getAllAirlines()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => {
+          this.airlines = data as Airline[];
+        },
+        error: (err) => {
+          this.toastService.show(err, false);
+        },
+      });
   }
 
-  closeEditAirlineForm() {
+  closeEditAirlineForm(): void {
     this.showEditAirlineForm = false;
     this.selectedAirline = null;
   }
 
-  getAirlinesOnSuccess() {
+  getAirlinesOnSuccess(): void {
     this.getAirlines();
   }
 
-  editAirlineForm(airline: any) {
+  editAirlineForm(airline: Airline): void {
     this.showEditAirlineForm = true;
     this.selectedAirline = airline;
     this.editMode = true;
   }
 
-  deleteAirline(airlineId: number) {
-    this.airlineService.deleteAirline(airlineId).subscribe({
-      next: () => {
-        this.getAirlines();
-
-        this.toastService.show('Delete successful', true);
-      },
-      error: (err) => {
-        this.toastService.show(err, false);
-      },
-    });
+  deleteAirline(airlineId: number): void {
+    this.airlineService
+      .deleteAirline(airlineId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.getAirlines();
+          this.toastService.show('Delete successful', true);
+        },
+        error: (err) => {
+          this.toastService.show(err, false);
+        },
+      });
   }
 
-  addAirlineForm() {
+  addAirlineForm(): void {
     this.showEditAirlineForm = true;
     this.editMode = false;
   }
 
-  openConfirmationModal(airline: Airline) {
+  openConfirmationModal(airline: Airline): void {
     this.selectedAirline = airline;
     this.isConfirmationModalOpen = true;
   }
 
-  closeConfirmationModal(confirmed: boolean) {
+  closeConfirmationModal(confirmed: boolean): void {
     this.isConfirmationModalOpen = false;
     if (confirmed) {
       this.deleteAirline(this.selectedAirline!.airlineId);
     }
   }
 
-  onDeleteConfirmation(confirmed: boolean) {
+  onDeleteConfirmation(confirmed: boolean): void {
     this.closeConfirmationModal(confirmed);
   }
 
   ngOnDestroy(): void {
-    if (this.airlineSubscription) {
-      this.airlineSubscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

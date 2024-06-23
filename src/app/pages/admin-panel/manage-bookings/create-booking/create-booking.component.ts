@@ -24,8 +24,8 @@ export class CreateBookingComponent implements OnInit {
   flights: Flight[] = [];
   passengers: Passenger[] = [];
 
-  passengerSubscription: Subscription | undefined;
-  flightSubscription: Subscription | undefined;
+  passengerSubscription!: Subscription;
+  flightSubscription!: Subscription;
 
   constructor(
     private flightService: FlightService,
@@ -48,7 +48,7 @@ export class CreateBookingComponent implements OnInit {
     this.getFlights();
   }
 
-  getPassengers() {
+  getPassengers(): void {
     this.passengerSubscription = this.passengerService
       .getAllPassengers()
       .subscribe({
@@ -61,7 +61,7 @@ export class CreateBookingComponent implements OnInit {
       });
   }
 
-  getFlights() {
+  getFlights(): void {
     this.passengerSubscription = this.flightService.getAllFlights().subscribe({
       next: (data) => {
         this.flights = data as Flight[];
@@ -72,11 +72,11 @@ export class CreateBookingComponent implements OnInit {
     });
   }
 
-  onCloseForm() {
+  onCloseForm(): void {
     this.closeForm.emit(false);
   }
 
-  onFormSubmitted() {
+  onFormSubmitted(): void {
     const requestBody = {
       flightId: this.bookingForm.value['flightId'],
       bookedSeats: this.bookingForm.value['bookedSeats'],

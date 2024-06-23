@@ -44,11 +44,11 @@ export class AddEditAirlineComponent implements OnInit {
     }
   }
 
-  onCloseForm() {
+  onCloseForm(): void {
     this.closeForm.emit();
   }
 
-  onFormSubmitted() {
+  onFormSubmitted(): void {
     if (this.editMode && this.selectedAirline) {
       this.airlineService
         .updateAirline(this.airlineForm.value, this.selectedAirline.airlineId)
@@ -57,7 +57,7 @@ export class AddEditAirlineComponent implements OnInit {
             this.toastService.show('Update successful', true);
             this.success.emit();
           },
-          error: (err) => {
+          error: (err: string) => {
             this.toastService.show(err, false);
           },
           complete: () => {
@@ -70,7 +70,7 @@ export class AddEditAirlineComponent implements OnInit {
           this.toastService.show('Airline added', true);
           this.success.emit();
         },
-        error: (err) => {
+        error: (err: string) => {
           this.toastService.show(err, false);
         },
         complete: () => {
