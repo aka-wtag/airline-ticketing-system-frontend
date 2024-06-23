@@ -1,8 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { DELETE_ICON, EDIT_ICON } from 'src/app/core/constants/icons';
-import { ICON_HEIGHT, ICON_WIDTH } from 'src/app/core/constants/variables';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Airline } from 'src/app/core/interface/airline';
 import { AirlineService } from 'src/app/core/service/airline.service';
 import { ToastService } from 'src/app/core/service/toast.service';
@@ -12,23 +9,21 @@ import { ToastService } from 'src/app/core/service/toast.service';
   templateUrl: './manage-airlines.component.html',
   styleUrls: ['./manage-airlines.component.css'],
 })
-export class ManageAirlinesComponent implements OnInit, OnDestroy {
+export class ManageAirlinesComponent implements OnInit {
   airlines: Airline[] = [];
 
   selectedAirline: Airline | null = null;
   showEditAirlineForm: boolean = false;
-
+  
   editMode: boolean = false;
-
-  private destroy$ = new Subject<void>();
-
+  
+  airlineSubscription: Subscription | undefined;
+  
   isConfirmationModalOpen: boolean = false;
-
-  editIcon = EDIT_ICON;
-  deleteIcon = DELETE_ICON;
-
-  iconWidth = ICON_WIDTH;
-  iconHeight = ICON_HEIGHT;
+  
+  currentPage = 1;
+  itemsPerPage = 3;
+  totalItems = 0;
 
   constructor(
     private airlineService: AirlineService,
@@ -36,30 +31,26 @@ export class ManageAirlinesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getAirlines();
+    this.loadAirlines();
   }
 
-  getAirlines(): void {
+  loadAirlines(): void {
     this.airlineService
-      .getAllAirlines()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (data) => {
-          this.airlines = data as Airline[];
-        },
-        error: (err) => {
-          this.toastService.show(err, false);
-        },
+      .getAirlines(this.currentPage - 1, this.itemsPerPage)
+      .subscribe((response: any) => {
+        this.airlines = response.content;
+        this.totalItems = response.totalElements;
       });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadAirlines();
   }
 
   closeEditAirlineForm(): void {
     this.showEditAirlineForm = false;
     this.selectedAirline = null;
-  }
-
-  getAirlinesOnSuccess(): void {
-    this.getAirlines();
   }
 
   editAirlineForm(airline: Airline): void {
@@ -69,18 +60,16 @@ export class ManageAirlinesComponent implements OnInit, OnDestroy {
   }
 
   deleteAirline(airlineId: number): void {
-    this.airlineService
-      .deleteAirline(airlineId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          this.getAirlines();
-          this.toastService.show('Delete successful', true);
-        },
-        error: (err) => {
-          this.toastService.show(err, false);
-        },
-      });
+    this.airlineService.deleteAirline(airlineId).subscribe({
+      next: () => {
+        this.loadAirlines();
+
+        this.toastService.show('Delete successful', true);
+      },
+      error: (err) => {
+        this.toastService.show(err, false);
+      },
+    });
   }
 
   addAirlineForm(): void {
@@ -105,7 +94,8 @@ export class ManageAirlinesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    if (this.airlineSubscription) {
+      this.airlineSubscription.unsubscribe();
+    }
   }
 }

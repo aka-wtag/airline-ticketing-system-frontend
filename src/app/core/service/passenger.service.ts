@@ -1,33 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ERRORMESSAGE } from '../constants/error-message';
 import { Passenger } from '../interface/passenger';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PassengerService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAllPassengers(): Observable<Passenger[]> {
+  getAllPassengers() {
     return this.http
-      .get<Passenger[]>(`${environment.apiUrl}/passengers`)
+      .get(`${environment.apiUrl}/passengers`)
       .pipe(catchError(this.errorHandler));
   }
 
-  private errorHandler(error: HttpErrorResponse) {
-    let errorMessage = 'Service not available';
-
-    if (error.status >= 400 && error.status < 500) {
-      if (error.error.message) {
-        errorMessage = error.error.message;
-      } else {
-        errorMessage = 'Request failed';
-      }
-    }
-
-    return throwError(errorMessage);
+  getPassengers(page: number, size: number) {
+    return this.http.get(
+      `${environment.apiUrl}/passengers?page=${page}&size=${size}`
+    );
   }
 
   deletePassenger(passengerId: number): Observable<void> {
@@ -46,5 +39,19 @@ export class PassengerService {
     return this.http
       .put<Passenger>(`${environment.apiUrl}/passengers/${passengerId}`, userDetails)
       .pipe(catchError(this.errorHandler));
+  }
+
+  private errorHandler(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = ERRORMESSAGE.SERVICENOTAVAILABLE;
+
+    if (error.status >= 400 && error.status < 500) {
+      if (error.error.message) {
+        errorMessage = error.error.message;
+      } else {
+        errorMessage = ERRORMESSAGE.REQUESTFAILED;
+      }
+    }
+
+    return throwError(errorMessage);
   }
 }

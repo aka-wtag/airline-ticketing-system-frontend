@@ -18,6 +18,10 @@ export class ManagePassengersComponent implements OnInit {
 
   selectedPassengerId!: number;
 
+  currentPage = 1;
+  itemsPerPage = 3;
+  totalItems = 0;
+
   constructor(
     private passengerService: PassengerService,
     private toastService: ToastService
@@ -29,10 +33,16 @@ export class ManagePassengersComponent implements OnInit {
 
   loadPassengers(): void {
     this.passengerService
-      .getAllPassengers()
-      .subscribe((response: Passenger[]) => {
-        this.passengers = response;
+      .getPassengers(this.currentPage - 1, this.itemsPerPage)
+      .subscribe((response: any) => {
+        this.passengers = response.content;
+        this.totalItems = response.totalElements;
       });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadPassengers();
   }
 
   deletePassenger(passengerId: number): void {

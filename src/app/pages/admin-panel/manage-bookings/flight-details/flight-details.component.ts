@@ -7,11 +7,11 @@ import { Flight } from 'src/app/core/interface/flight';
   styleUrls: ['./flight-details.component.css'],
 })
 export class FlightDetailsComponent {
-  @Input() selectedFlight!: Flight;
+  @Input()
+  selectedFlight!: Flight;
 
   @Output()
   closePopup: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   closeFlightDetails() {
     this.closePopup.emit(false);
   }

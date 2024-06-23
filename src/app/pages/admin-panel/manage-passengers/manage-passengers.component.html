@@ -1,37 +1,51 @@
-<app-confirmation-modal *ngIf="isConfirmationModalOpen"
-    (handleConfirm)="onDeleteConfirmation($event)"></app-confirmation-modal>
+<app-confirmation-modal
+  *ngIf="isConfirmationModalOpen"
+  (handleConfirm)="onDeleteConfirmation($event)"
+></app-confirmation-modal>
 
 <section class="passenger">
-    <h2>Passenger List</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Passenger ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Contact</th>
-                <th>Passport Number</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container
-                *ngFor="let passenger of passengers">
-                <tr>
-                    <td>{{ passenger.userId }}</td>
-                    <td>
-                        {{ passenger.userFullName }}
-                    </td>
-                    <td>{{ passenger.userEmail }}</td>
-                    <td>{{ passenger.userContact }}</td>
-                    <td>{{ passenger.passengerPassport }}</td>
-                    <td>
-                        <button class="delete-btn" (click)="openConfirmationModal(passenger.userId)">
-                            <img src="../../../assets/icons/delete-icon.svg" alt="delete-icon" width="20" height="20" />
-                        </button>
-                    </td>
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
+  <h2>Passenger List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Passenger ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Passport Number</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let passenger of passengers | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }">
+        <tr>
+          <td>{{ passenger.userId }}</td>
+          <td>
+            {{ passenger.userFullName }}
+          </td>
+          <td>{{ passenger.userEmail }}</td>
+          <td>{{ passenger.userContact }}</td>
+          <td>{{ passenger.passengerPassport }}</td>
+          <td>
+            <button
+              class="delete-btn"
+              (click)="openConfirmationModal(passenger.userId)"
+            >
+              <img
+                src="../../../assets/icons/delete-icon.svg"
+                alt="delete-icon"
+                width="20"
+                height="20"
+              />
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="pagination-controls">
+    <pagination-controls (pageChange)="onPageChange($event)" previousLabel="Previous"
+      nextLabel="Next" [autoHide]="true"></pagination-controls>
+  </div>
 </section>

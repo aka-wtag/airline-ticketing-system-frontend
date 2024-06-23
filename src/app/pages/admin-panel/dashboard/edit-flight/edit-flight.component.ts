@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Airline } from 'src/app/core/interface/airline';
 import { Flight } from 'src/app/core/interface/flight';
+import { AirlineService } from 'src/app/core/service/airline.service';
 import { FlightService } from 'src/app/core/service/flight.service';
 import { ToastService } from 'src/app/core/service/toast.service';
 
@@ -14,7 +15,8 @@ export class EditFlightComponent implements OnInit {
   editFlightForm: FormGroup;
 
   @Input() selectedFlight: Flight | undefined | null;
-  @Input() airlines: Airline[] = [];
+
+  airlines: Airline[] = [];
 
   @Output()
   closeForm: EventEmitter<void> = new EventEmitter<void>();
@@ -23,7 +25,8 @@ export class EditFlightComponent implements OnInit {
 
   constructor(
     private flightService: FlightService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private airlineService: AirlineService
   ) {
     this.editFlightForm = new FormGroup({
       fare: new FormControl(null, [Validators.required, Validators.min(1000)]),
@@ -32,19 +35,30 @@ export class EditFlightComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadAirlines();
+
     this.editFlightForm.patchValue({
       fare: this.selectedFlight?.fare,
       airlineId: this.selectedFlight?.airline.airlineId,
     });
   }
 
-  onCloseForm() {
+  loadAirlines(): void {
+    this.airlineService
+      .getAllAirlines()
+      .subscribe((response: any) => {
+        this.airlines = response.content;
+      });
+  }
+
+
+  onCloseForm(): void {
     this.closeForm.emit();
   }
 
-  onFormSubmitted() {
+  onFormSubmitted(): void {
     this.flightService
-      .updateFlight(this.editFlightForm.value, this.selectedFlight?.flightId)
+      .updateFlight(this.editFlightForm.value, this.selectedFlight!.flightId)
       .subscribe({
         next: () => {
           this.toastService.show('Update successful', true);

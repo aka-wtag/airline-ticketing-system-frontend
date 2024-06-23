@@ -1,4 +1,4 @@
-export interface FlightCreateDTo {
+export interface FlightCreateRequest {
     arrivalDate: string;
     arrivalLocation: string;
     arrivalTime: string;
@@ -6,7 +6,5 @@ export interface FlightCreateDTo {
     departureLocation: string;
     departureTime: string;
     fare: number;
-    flightId: number;
-    remainingSeats: number;
     airlineId: number
-  }
+}

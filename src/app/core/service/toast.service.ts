@@ -8,9 +8,7 @@ export class ToastService {
   private toastSubject = new Subject<any>();
   toastState = this.toastSubject.asObservable();
 
-  constructor() {}
-
-  show(message: string, success: boolean) {
+  show(message: string, success: boolean): void {
     this.toastSubject.next({ message, success });
 
     setTimeout(() => {
@@ -18,7 +16,7 @@ export class ToastService {
     }, 2000);
   }
 
-  clear() {
+  clear(): void {
     this.toastSubject.next('');
   }
 }

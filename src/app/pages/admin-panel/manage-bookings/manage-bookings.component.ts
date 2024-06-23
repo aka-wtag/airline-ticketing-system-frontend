@@ -14,16 +14,19 @@ export class ManageBookingsComponent implements OnInit {
   bookings: Booking[] = [];
 
   showFlight: boolean = false;
-
   selectedFlight!: Flight;
-  
-  selectedBooking: Booking | null = null;
 
   showBookingForm: boolean = false;
 
-  bookingSubscription!: Subscription;
+  bookingSubscription: Subscription | undefined;
 
   isConfirmationModalOpen: boolean = false;
+
+  selectedBooking: Booking | undefined;
+
+  currentPage = 1;
+  itemsPerPage = 3;
+  totalItems = 0;
 
   constructor(
     private bookingService: BookingService,
@@ -31,18 +34,26 @@ export class ManageBookingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getBookings();
+    this.loadBookings();
   }
 
-  getBookings(): void {
-    this.bookingSubscription = this.bookingService.getAllBookings().subscribe({
-      next: (data: Booking[]) => {
-        this.bookings = data;
-      },
-      error: (err) => {
-        this.toastService.show(err, false);
-      },
-    });
+  loadBookings(): void {
+    this.bookingService
+      .getBookings(this.currentPage - 1, this.itemsPerPage)
+      .subscribe({
+        next: (response: any) => {
+          this.bookings = response.content;
+          this.totalItems = response.totalElements;
+        },
+        error: (err) => {
+          this.toastService.show(err, false);
+        },
+      });
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadBookings();
   }
 
   showFlightDetails(flight: Flight): void {
@@ -57,7 +68,7 @@ export class ManageBookingsComponent implements OnInit {
   deleteBooking(passengerId: number, flightId: number): void {
     this.bookingService.deleteBooking(passengerId, flightId).subscribe({
       next: () => {
-        this.getBookings();
+        this.loadBookings();
 
         this.toastService.show('Booking deleted', true);
       },
@@ -88,9 +99,5 @@ export class ManageBookingsComponent implements OnInit {
 
   onDeleteConfirmation(confirmed: boolean): void {
     this.closeConfirmationModal(confirmed);
-  }
-
-  onDestroy(): void {
-    this.bookingSubscription.unsubscribe();
   }
 }

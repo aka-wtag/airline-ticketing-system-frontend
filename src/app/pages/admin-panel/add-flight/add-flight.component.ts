@@ -12,12 +12,12 @@ import { ToastService } from 'src/app/core/service/toast.service';
   styleUrls: ['./add-flight.component.css'],
 })
 export class AddFlightComponent implements OnInit, OnDestroy {
-  flightForm!: FormGroup;
+  flightForm: FormGroup;
   airlines!: Airline[];
   sources!: string[];
   destinations!: string[];
 
-  airlineSubscription!: Subscription;
+  airlineSubscription: Subscription | undefined;
 
   constructor(
     private airlineService: AirlineService,
@@ -39,8 +39,6 @@ export class AddFlightComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getAirlines();
 
-    this.airlineService.getAllAirlines().subscribe();
-
     this.sources = ['Dhaka', 'Chittagong', 'Sylhet', 'Florida', 'Toronto'];
 
     this.destinations = ['Dhaka', 'Chittagong', 'Sylhet', 'Florida', 'Toronto'];
@@ -48,8 +46,8 @@ export class AddFlightComponent implements OnInit, OnDestroy {
 
   getAirlines(): void {
     this.airlineSubscription = this.airlineService.getAllAirlines().subscribe({
-      next: (data: Airline[]) => {
-        this.airlines = data;
+      next: (data: any) => {
+        this.airlines = data.content as Airline[];
       },
       error: (err) => {
         this.toastService.show(err, false);
@@ -78,6 +76,8 @@ export class AddFlightComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.airlineSubscription.unsubscribe();
+    if (this.airlineSubscription) {
+      this.airlineSubscription.unsubscribe();
+    }
   }
 }

@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { FlightCreateDTo } from '../interface/flightCreateDto';
-import { Flight } from '../interface/flight';
+import { ERRORMESSAGE } from '../constants/error-message';
 import { FlightSearchRequest } from '../interface/flight-search-request';
+import { FlightUpdateRequest } from '../interface/flight-update-request';
+import { Flight } from '../interface/flight';
+import { FlightCreateRequest } from '../interface/flight-create-request';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +20,12 @@ export class FlightService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getFlights(page: number, size: number) {
+    return this.http.get(
+      `${environment.apiUrl}/flights?page=${page}&size=${size}`
+    );
+  }
+
   getSearchedFlights(params: FlightSearchRequest): Observable<Flight[]> {
     return this.http
       .get<Flight[]>(
@@ -26,35 +34,35 @@ export class FlightService {
       .pipe(catchError(this.errorHandler));
   }
 
-  updateFlight(requestBody: any, flightId: any) {
+  updateFlight(requestBody: FlightUpdateRequest, flightId: number): Observable<Flight> {
     return this.http
-      .put(`${environment.apiUrl}/flights/${flightId}`, requestBody)
+      .put<Flight>(`${environment.apiUrl}/flights/${flightId}`, requestBody)
       .pipe(catchError(this.errorHandler));
   }
 
-  deleteflight(flightId: number) {
+  deleteflight(flightId: number): Observable<void> {
     return this.http
-      .delete(`${environment.apiUrl}/flights/${flightId}`)
+      .delete<void>(`${environment.apiUrl}/flights/${flightId}`)
       .pipe(catchError(this.errorHandler));
   }
 
-  private errorHandler(error: HttpErrorResponse) {
-    let errorMessage = 'Service not available';
+  createFlight(requestBody: FlightCreateRequest): Observable<Flight> {
+    return this.http
+      .post<Flight>(`${environment.apiUrl}/flights`, requestBody)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  private errorHandler(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = ERRORMESSAGE.SERVICENOTAVAILABLE;
 
     if (error.status >= 400 && error.status < 500) {
       if (error.error.message) {
         errorMessage = error.error.message;
       } else {
-        errorMessage = 'Request failed';
+        errorMessage = ERRORMESSAGE.REQUESTFAILED;
       }
     }
 
     return throwError(errorMessage);
-  }
-
-  createFlight(requestBody: FlightCreateDTo): Observable<Flight> {
-    return this.http
-      .post<Flight>(`${environment.apiUrl}/flights`, requestBody)
-      .pipe(catchError(this.errorHandler));
   }
 }

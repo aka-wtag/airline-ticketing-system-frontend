@@ -57,7 +57,7 @@ export class AddEditAirlineComponent implements OnInit {
             this.toastService.show('Update successful', true);
             this.success.emit();
           },
-          error: (err: string) => {
+          error: (err) => {
             this.toastService.show(err, false);
           },
           complete: () => {
@@ -70,7 +70,7 @@ export class AddEditAirlineComponent implements OnInit {
           this.toastService.show('Airline added', true);
           this.success.emit();
         },
-        error: (err: string) => {
+        error: (err) => {
           this.toastService.show(err, false);
         },
         complete: () => {

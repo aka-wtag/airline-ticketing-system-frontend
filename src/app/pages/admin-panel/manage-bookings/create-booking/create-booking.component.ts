@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { BookingCreateRequest } from 'src/app/core/interface/booking-create-request';
 import { Flight } from 'src/app/core/interface/flight';
 import { Passenger } from 'src/app/core/interface/passenger';
 import { BookingService } from 'src/app/core/service/booking.service';
@@ -24,8 +25,8 @@ export class CreateBookingComponent implements OnInit {
   flights: Flight[] = [];
   passengers: Passenger[] = [];
 
-  passengerSubscription!: Subscription;
-  flightSubscription!: Subscription;
+  passengerSubscription: Subscription | undefined;
+  flightSubscription: Subscription | undefined;
 
   constructor(
     private flightService: FlightService,
@@ -52,8 +53,8 @@ export class CreateBookingComponent implements OnInit {
     this.passengerSubscription = this.passengerService
       .getAllPassengers()
       .subscribe({
-        next: (data) => {
-          this.passengers = data as Passenger[];
+        next: (data: any) => {
+          this.passengers = data.content as Passenger[];
         },
         error: (err) => {
           this.toastService.show(err, false);
@@ -63,8 +64,8 @@ export class CreateBookingComponent implements OnInit {
 
   getFlights(): void {
     this.passengerSubscription = this.flightService.getAllFlights().subscribe({
-      next: (data) => {
-        this.flights = data as Flight[];
+      next: (data: any) => {
+        this.flights = data.content as Flight[];
       },
       error: (err) => {
         this.toastService.show(err, false);
@@ -77,7 +78,7 @@ export class CreateBookingComponent implements OnInit {
   }
 
   onFormSubmitted(): void {
-    const requestBody = {
+    const requestBody: BookingCreateRequest = {
       flightId: this.bookingForm.value['flightId'],
       bookedSeats: this.bookingForm.value['bookedSeats'],
     };

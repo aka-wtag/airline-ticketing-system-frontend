@@ -9,32 +9,26 @@ import {
   throwError,
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ERRORMESSAGE } from '../constants/error-message';
+import { BookingCreateRequest } from '../interface/booking-create-request';
 import { Booking } from '../interface/booking';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookingService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAllBookings(): Observable<Booking[]> {
-    return this.http
-      .get<Booking[]>(`${environment.apiUrl}/bookings`)
-      .pipe(catchError(this.errorHandler));
+  getBookings(page: number, size: number) {
+    return this.http.get(
+      `${environment.apiUrl}/bookings?page=${page}&size=${size}`
+    );
   }
 
-  private errorHandler(error: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'Service not available';
-
-    if (error.status >= 400 && error.status < 500) {
-      if (error.error.message) {
-        errorMessage = error.error.message;
-      } else {
-        errorMessage = 'Request failed';
-      }
-    }
-
-    return throwError(errorMessage);
+  getPassengerBookings(passengerId: number) {
+    return this.http
+      .get(`${environment.apiUrl}/passengers/${passengerId}/bookings`)
+      .pipe(catchError(this.errorHandler));
   }
 
   deleteBooking(passengerId: number, bookingId: number): Observable<void> {
@@ -45,18 +39,27 @@ export class BookingService {
       .pipe(catchError(this.errorHandler));
   }
 
-  createBooking(passengerId: number, requestBody: any) {
+  createBooking(passengerId: number, requestBody: BookingCreateRequest): Observable<Booking> {
     return this.http
-      .post(
+      .post<Booking>(
         `${environment.apiUrl}/passengers/${passengerId}/bookings`,
         requestBody
       )
       .pipe(catchError(this.errorHandler));
   }
 
-  getPassengerBookings(passengerId: number) {
-    return this.http
-      .get(`${environment.apiUrl}/passengers/${passengerId}/bookings`)
-      .pipe(catchError(this.errorHandler));
+
+  private errorHandler(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = ERRORMESSAGE.SERVICENOTAVAILABLE;
+
+    if (error.status >= 400 && error.status < 500) {
+      if (error.error.message) {
+        errorMessage = error.error.message;
+      } else {
+        errorMessage = ERRORMESSAGE.REQUESTFAILED;
+      }
+    }
+
+    return throwError(errorMessage);
   }
 }

@@ -3,13 +3,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/service/auth.service';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/core/service/toast.service';
+import { Token } from '../../../core/interface/token';
+import { USERTYPE } from 'src/app/core/constants/user-type';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(
@@ -26,18 +28,18 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
-  onSubmit() {
+  onSubmit(): void {
     this.authService.onLogin(this.loginForm.value).subscribe({
-      next: () => {
-        if (this.authService.getUserType() === 'Admin') {
+      next: (response: Token) => {
+        this.authService.setAuthenticatedUser(response);
+
+        if (this.authService.getUserType() === USERTYPE.ADMIN) {
           this.router.navigate(['/admin/dashboard']);
           return;
         }
         this.router.navigate(['/flights']);
       },
-      error: (err) => {
+      error: (err: string) => {
         this.toastService.show(err, false);
       },
     });

@@ -1,5 +1,7 @@
 .airline {
   background-color: var(--var-off-white-color);
+  display: flex;
+  flex-direction: column;
   margin: 1.5rem auto;
   width: 75%;
   padding: 1.25rem;
@@ -59,8 +61,14 @@ button:hover {
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
+  width: max-content;
 }
 
 .add-btn:hover {
   opacity: 0.8;
+}
+
+.pagination-controls{
+  margin-top: 2.5rem;
+  align-self: flex-end;
 }

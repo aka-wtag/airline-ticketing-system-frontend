@@ -1,5 +1,5 @@
-<app-edit-flight *ngIf="showEditFlightForm" (closeForm)="closeEditFlightForm()" (updateSuccess)="getFlightsOnSuccess()"
-  [selectedFlight]="selectedFlight" [airlines]="airlines">
+<app-edit-flight *ngIf="showEditFlightForm" (closeForm)="closeEditFlightForm()" (updateSuccess)="loadFlights()"
+  [selectedFlight]="selectedFlight">
 </app-edit-flight>
 
 <app-confirmation-modal *ngIf="isConfirmationModalOpen"
@@ -9,17 +9,17 @@
   <div class="box">
     <img src="assets/icons/user.png" alt="user_icon" />
     <p>Total Passengers</p>
-    <p>{{ passengers.length }}</p>
+    <p>{{ totalPassengers }}</p>
   </div>
   <div class="box">
     <img src="assets/icons/flight.png" alt="user_icon" />
     <p>Total Flights</p>
-    <p>{{ flights.length }}</p>
+    <p>{{ totalFlights }}</p>
   </div>
   <div class="box">
     <img src="assets/icons/airline.png" alt="user_icon" />
     <p>Total Airlines</p>
-    <p>{{ airlines.length }}</p>
+    <p>{{ totalAirlines }}</p>
   </div>
 </div>
 
@@ -40,7 +40,7 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let flight of flights">
+      <ng-container *ngFor="let flight of flights | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }">
         <tr>
           <td>{{ flight.flightId }}</td>
           <td>
@@ -67,4 +67,9 @@
       </ng-container>
     </tbody>
   </table>
+
+  <div class="pagination-controls">
+    <pagination-controls (pageChange)="onPageChange($event)" previousLabel="Previous" nextLabel="Next"
+      [autoHide]="true"></pagination-controls>
+  </div>
 </section>

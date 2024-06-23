@@ -24,6 +24,8 @@
 
 .flights {
   background-color: var(--var-white-color);
+  display: flex;
+  flex-direction: column;
   margin: 2rem;
   padding: 2rem;
   border-radius: 1rem;
@@ -63,3 +65,9 @@ button {
   cursor: pointer;
   color: var(--var-light-blue-color);
 }
+
+.pagination-controls{
+  margin-top: 2.5rem;
+  align-self: flex-end;
+}
+

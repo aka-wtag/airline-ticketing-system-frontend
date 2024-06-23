@@ -9,11 +9,12 @@ import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { ManageAirlinesComponent } from './manage-airlines/manage-airlines.component';
 import { AddEditAirlineComponent } from './manage-airlines/add-edit-airline/add-edit-airline.component';
-import { CreateBookingComponent } from './manage-bookings/create-booking/create-booking.component';
 import { FlightDetailsComponent } from './manage-bookings/flight-details/flight-details.component';
 import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 import { ManagePassengersComponent } from './manage-passengers/manage-passengers.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CreateBookingComponent } from './manage-bookings/create-booking/create-booking.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -24,11 +25,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AddFlightComponent,
     ManageAirlinesComponent,
     AddEditAirlineComponent,
-    CreateBookingComponent,
     FlightDetailsComponent,
     ManageBookingsComponent,
-    ManagePassengersComponent
+    ManagePassengersComponent,
+    CreateBookingComponent,
   ],
-  imports: [CommonModule, AdminPanelRoutingModule, ReactiveFormsModule, SharedModule],
+  imports: [
+    CommonModule,
+    AdminPanelRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
+    NgxPaginationModule,
+  ],
 })
-export class AdminPanelModule { }
+export class AdminPanelModule {}

@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../interface/user';
 import { JwtService } from './jwt.service';
+import { ROUTES } from '../constants/routes';
+import { ERRORMESSAGE } from '../constants/error-message';
+import { Token } from '../interface/token';
+import { Login } from '../interface/login';
+import { PassengerCreateRequest } from '../interface/passenger-create-request';
+import { Passenger } from '../interface/passenger';
 
 @Injectable({
   providedIn: 'root',
@@ -25,60 +31,40 @@ export class AuthService {
     }
   }
 
-  onLogin(data: any) {
-    return this.http.post(`${environment.apiUrl}/users/login`, data).pipe(
-      catchError(this.errorHandler),
-      map((response) => {
-        if (response) {
-          this.setAuthenticatedUser(response);
-        }
-        return response;
-      })
-    );
-  }
-
-  onRegistration(data: any) {
+  onLogin(data: Login): Observable<Token> {
     return this.http
-      .post(`${environment.apiUrl}/passengers`, data)
+      .post<Token>(`${environment.apiUrl}/users/login`, data)
       .pipe(catchError(this.errorHandler));
   }
 
-  onLogout() {
+  onRegistration(data: PassengerCreateRequest): Observable<Passenger> {
     return this.http
-      .post(`${environment.apiUrl}/users/logout`, null)
+      .post<Passenger>(`${environment.apiUrl}/passengers`, data)
       .pipe(catchError(this.errorHandler));
   }
 
-  private errorHandler(error: HttpErrorResponse) {
-    let errorMessage = 'Service not available';
-
-    if (error.status >= 400 && error.status < 500) {
-      if (error.error.message) {
-        errorMessage = error.error.message;
-      } else {
-        errorMessage = 'Request not correct';
-      }
-    }
-
-    return throwError(errorMessage);
+  onLogout(): Observable<void> {
+    return this.http
+      .post<void>(`${environment.apiUrl}/users/logout`, null)
+      .pipe(catchError(this.errorHandler));
   }
 
-  updateAuthenticatedUser(user: User | null) {
+  updateAuthenticatedUser(user: User | null): void {
     this.authenticatedUser.next(user);
   }
 
-  setAuthenticatedUser(response: any) {
+  setAuthenticatedUser(response: Token): void {
     this.updateAuthenticatedUser(
-      this.jwtService.getUserFromToken(response['accessToken'])
+      this.jwtService.getUserFromToken(response.accessToken)
     );
-    this.jwtService.setToken(response['accessToken']);
+    this.jwtService.setToken(response.accessToken);
   }
 
-  removeAuthenticatedUser() {
+  removeAuthenticatedUser(): void {
     this.updateAuthenticatedUser(null);
     this.jwtService.removeToken();
 
-    this.router.navigate(['/login']);
+    this.router.navigate([ROUTES.LOGIN]);
   }
 
   getUserId(): number | undefined {
@@ -87,5 +73,19 @@ export class AuthService {
 
   getUserType(): string | undefined {
     return this.authenticatedUser?.getValue()?.role;
+  }
+
+  private errorHandler(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = ERRORMESSAGE.SERVICENOTAVAILABLE;
+
+    if (error.status >= 400 && error.status < 500) {
+      if (error.error.message) {
+        errorMessage = error.error.message;
+      } else {
+        errorMessage = ERRORMESSAGE.REQUESTFAILED;
+      }
+    }
+
+    return throwError(errorMessage);
   }
 }
