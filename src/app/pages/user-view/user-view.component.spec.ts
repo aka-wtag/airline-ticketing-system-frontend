@@ -10,10 +10,9 @@ describe('UserViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserViewComponent ],
+      declarations: [UserViewComponent],
       imports: [HttpClientTestingModule, RouterTestingModule],
-    })
-    .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
