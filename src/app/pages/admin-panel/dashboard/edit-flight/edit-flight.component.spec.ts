@@ -7,7 +7,6 @@ import { FlightService } from 'src/app/core/service/flight.service';
 import { ToastService } from 'src/app/core/service/toast.service';
 import { of, throwError } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 describe('EditFlightComponent', () => {
   let component: EditFlightComponent;
@@ -41,7 +40,7 @@ describe('EditFlightComponent', () => {
   it('should initialize form with selected flight data', () => {
     const mockFlight = {
       flightId: 1,
-      fare: 1000,
+      fare: 2000,
       remainingSeats: 50,
       departureDate: '2023-07-01',
       departureLocation: 'Dhaka',
@@ -160,25 +159,29 @@ describe('EditFlightComponent', () => {
 
   it('should validate fare input correctly', () => {
     const fareControl = component.editFlightForm.get('fare');
+    fareControl?.markAsTouched();
+
     fareControl?.setValue('');
     expect(component.isValid('fare', 'required')).toBeTrue();
 
-    fareControl?.setValue(500);
+    fareControl?.setValue('500');
     expect(component.isValid('fare', 'min')).toBeTrue();
 
-    fareControl?.setValue(1500);
-    expect(component.isValid('fare', 'min')).toBeFalse();
-    expect(component.isValid('fare', 'required')).toBeFalse();
+    fareControl?.setValue('1500');
+    expect(fareControl?.errors?.['min']).toBeUndefined();
+    expect(fareControl?.errors?.['required']).toBeUndefined();
   });
 
   it('should validate airlineId input correctly', () => {
+    component.ngOnInit();
+
     const airlineIdControl = component.editFlightForm.get('airlineId');
-  
+    airlineIdControl?.markAsTouched();
+
     airlineIdControl?.setValue('');
-    expect(component.isValid('airlineId', 'required')).toBeFalse();
-  
-    airlineIdControl?.setValue('1');
     expect(component.isValid('airlineId', 'required')).toBeTrue();
+
+    airlineIdControl?.setValue(1);
+    expect(airlineIdControl?.errors?.['required']).toBeUndefined();
   });
-  
 });
