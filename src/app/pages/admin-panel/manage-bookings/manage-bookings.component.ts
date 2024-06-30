@@ -100,4 +100,10 @@ export class ManageBookingsComponent implements OnInit {
   onDeleteConfirmation(confirmed: boolean): void {
     this.closeConfirmationModal(confirmed);
   }
+
+  ngOnDestroy(): void {
+    if (this.bookingSubscription) {
+      this.bookingSubscription.unsubscribe();
+    }
+  }
 }
