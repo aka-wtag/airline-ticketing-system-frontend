@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of, throwError } from 'rxjs';
+import { Subscription, of, throwError } from 'rxjs';
 import { BookingService } from 'src/app/core/service/booking.service';
 import { ToastService } from 'src/app/core/service/toast.service';
 import { ManageBookingsComponent } from './manage-bookings.component';
@@ -175,5 +175,13 @@ describe('ManageBookingsComponent', () => {
 
     expect(component.isConfirmationModalOpen).toBeFalse();
     expect(component.deleteBooking).not.toHaveBeenCalled();
+  });
+
+  it('should unsubscribe from all subscriptions on destroy', () => {
+    const sub = new Subscription();
+    component.bookingSubscription = sub;
+    spyOn(sub, 'unsubscribe');
+    component.ngOnDestroy();
+    expect(sub.unsubscribe).toHaveBeenCalled();
   });
 });

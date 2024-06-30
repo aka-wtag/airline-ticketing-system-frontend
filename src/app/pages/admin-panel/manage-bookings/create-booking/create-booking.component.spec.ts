@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateBookingComponent } from './create-booking.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { of, throwError } from 'rxjs';
+import { Subscription, of, throwError } from 'rxjs';
 import { BookingService } from 'src/app/core/service/booking.service';
 import { FlightService } from 'src/app/core/service/flight.service';
 import { PassengerService } from 'src/app/core/service/passenger.service';
@@ -205,5 +205,20 @@ describe('CreateBookingComponent', () => {
     const button = fixture.nativeElement.querySelector('button[type="submit"]');
     expect(button.disabled).toBeTruthy();
   });
-});
 
+  it('should unsubscribe from all subscriptions on destroy', () => {
+    const sub1 = new Subscription();
+    const sub2 = new Subscription();
+
+    component.passengerSubscription = sub1;
+    component.flightSubscription = sub2;
+
+    spyOn(sub1, 'unsubscribe');
+    spyOn(sub2, 'unsubscribe');
+
+    component.ngOnDestroy();
+
+    expect(sub1.unsubscribe).toHaveBeenCalled();
+    expect(sub2.unsubscribe).toHaveBeenCalled();
+  });
+});
