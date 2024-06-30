@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { BookingCreateRequest } from 'src/app/core/interface/booking-create-request';
@@ -14,7 +14,7 @@ import { ToastService } from 'src/app/core/service/toast.service';
   templateUrl: './create-booking.component.html',
   styleUrls: ['./create-booking.component.css'],
 })
-export class CreateBookingComponent implements OnInit {
+export class CreateBookingComponent implements OnInit, OnDestroy {
   bookingForm: FormGroup;
 
   @Output()
@@ -103,5 +103,14 @@ export class CreateBookingComponent implements OnInit {
       this.bookingForm.get(key)?.errors?.[validatorType] &&
       this.bookingForm.get(key)?.touched
     );
+  }
+
+  ngOnDestroy(): void{
+    if (this.passengerSubscription) {
+      this.passengerSubscription.unsubscribe();
+    }
+    if (this.flightSubscription){
+      this.flightSubscription.unsubscribe();
+    }
   }
 }
