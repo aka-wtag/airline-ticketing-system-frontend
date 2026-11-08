@@ -5,6 +5,7 @@ import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { AdminGuard } from 'src/app/core/guards/admin.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddFlightComponent } from './add-flight/add-flight.component';
+import { ManageAirlinesComponent } from './manage-airlines/manage-airlines.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'add-flight', component: AddFlightComponent },
+      { path: 'manage-airlines', component: ManageAirlinesComponent },
     ],
   },
 ];

@@ -1,0 +1,66 @@
+.airline {
+  background-color: var(--var-off-white-color);
+  margin: 1.5rem auto;
+  width: 75%;
+  padding: 1.25rem;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+}
+
+.airline h2 {
+  margin: 0.625rem 0;
+  color: var(--var-dark-gray-color);
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: var(--var-dark-gray-color);
+  color: var(--var-white-color);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 0.0625rem solid var(--var-light-gray-color);
+}
+
+th:first-child,
+td:first-child {
+  padding-left: 1.25rem;
+}
+
+button {
+  padding: 0.3125rem;
+  margin-right: 0.3125rem;
+  cursor: pointer;
+}
+
+.edit-btn,
+.delete-btn {
+  background-color: transparent;
+  border: none;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.add-btn {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--var-blue-color);
+  color: var(--var-white-color);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  opacity: 0.8;
+}
