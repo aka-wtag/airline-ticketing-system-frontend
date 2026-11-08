@@ -1,0 +1,59 @@
+<div class="overlay">
+  <div class="popup">
+    <h2>Create Booking</h2>
+    <button class="close" (click)="onCloseForm()">&times;</button>
+    <div class="content">
+      <section class="container">
+        <form
+          class="form"
+          [formGroup]="bookingForm"
+          (ngSubmit)="onFormSubmitted()"
+        >
+          <div class="input-box booking">
+            <label>Passenger*</label>
+            <div class="select-box">
+              <select formControlName="passengerId">
+                <ng-container *ngFor="let passenger of passengers">
+                  <option [value]="passenger.userId">
+                    {{ passenger.userEmail }}
+                  </option>
+                </ng-container>
+              </select>
+            </div>
+            <small *ngIf="isValid('passengerId', 'required')">
+              *Passenger must be selected
+            </small>
+          </div>
+          <div class="input-box booking">
+            <label>Flight*</label>
+            <div class="select-box">
+              <select formControlName="flightId">
+                <ng-container *ngFor="let flight of flights">
+                  <option [value]="flight.flightId">
+                    {{ flight.flightId }}
+                  </option>
+                </ng-container>
+              </select>
+            </div>
+            <small *ngIf="isValid('flightId', 'required')">
+              *Flight Id must be selected
+            </small>
+          </div>
+          <div class="input-box">
+            <label>Seats*</label>
+            <input type="number" formControlName="bookedSeats" />
+            <small
+              *ngIf="
+                isValid('bookedSeats', 'required') ||
+                isValid('bookedSeats', 'min')
+              "
+            >
+              *Number of seats must be provided and should be greater than 0
+            </small>
+          </div>
+          <button type="submit" [disabled]="bookingForm.invalid">Add</button>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
