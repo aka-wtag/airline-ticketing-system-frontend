@@ -1,0 +1,88 @@
+.input-group input[type="date"],
+.input-group input[type="time"],
+.input-group select,
+.input-group input[type="number"] {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid var(--var-light-gray-color);
+  margin-right: 1rem;
+}
+
+.input-group input[type="date"],
+.input-group input[type="time"] {
+  flex: 1;
+}
+
+.input-group select {
+  flex: 2;
+}
+
+.input-group input[type="number"] {
+  flex: 1;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 0.4rem;
+  background-color: var(--var-blue-color);
+  color: var(--var-white-color);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--var-dark-blue);
+}
+
+button:disabled {
+  background-color: var(--var-light-gray-color);
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: var(--var-red-color);
+  font-weight: bold;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.flight-form {
+  width: 80%;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 0.1rem solid var(--var-light-gray-color);
+  border-radius: 0.8rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.flight-form h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.input-group > div {
+  flex: 1 1 45%;
+  margin-right: 2rem;
+}
+
+.input-group > div:last-child {
+  margin-right: 0;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
