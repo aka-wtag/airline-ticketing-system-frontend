@@ -1,0 +1,65 @@
+<div class="user-profile-container">
+  <div class="card">
+    <h2>User Profile</h2>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="fullName">
+          <i class="icon user-icon"></i>
+          Full Name
+        </label>
+        <input id="userFullName" formControlName="userFullName" type="text" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="email">
+          <i class="icon email-icon"></i>
+          Email
+        </label>
+        <input id="userEmail" formControlName="userEmail" type="email" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="newPassword">
+          <i class="icon password-icon"></i>
+          New Password
+        </label>
+        <div class="password-container">
+          <input id="userPassword" formControlName="userPassword" [type]="newPasswordVisible ? 'text' : 'password'"
+            class="form-control">
+          <button type="button" class="toggle-visibility" (click)="toggleNewPasswordVisibility()">
+            {{ newPasswordVisible ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">
+          <i class="icon password-icon"></i>
+          Confirm Password
+        </label>
+        <div class="password-container">
+          <input id="confirmPassword" formControlName="confirmPassword"
+            [type]="confirmPasswordVisible ? 'text' : 'password'" class="form-control">
+          <button type="button" class="toggle-visibility" (click)="toggleConfirmPasswordVisibility()">
+            {{ confirmPasswordVisible ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+        <div *ngIf="userForm.hasError('passwordMismatch') && userForm.get('confirmPassword')?.touched">
+          <small class="error">Passwords do not match</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contactNumber">
+          <i class="icon phone-icon"></i>
+          Contact Number
+        </label>
+        <input id="userContact" formControlName="userContact" type="text" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="passportNumber">
+          <i class="icon passport-icon"></i>
+          Passport Number
+        </label>
+        <input id="passengerPassport" formControlName="passengerPassport" type="text" class="form-control">
+      </div>
+      <button type="submit" class="btn" [disabled]="userForm.invalid">Save</button>
+    </form>
+  </div>
+</div>

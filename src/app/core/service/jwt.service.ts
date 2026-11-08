@@ -6,13 +6,12 @@ import { User } from '../interface/user';
   providedIn: 'root',
 })
 export class JwtService {
-  constructor() {}
+  constructor() { }
 
   decodeToken(token: string): any {
     try {
       return jwtDecode(token);
     } catch (error) {
-      console.error('Error decoding token:', error);
       return null;
     }
   }
@@ -32,11 +31,11 @@ export class JwtService {
     return localStorage.getItem('token');
   }
 
-  setToken(token: string) {
+  setToken(token: string): void {
     localStorage.setItem('token', token);
   }
 
-  removeToken() {
+  removeToken(): void {
     localStorage.removeItem('token');
   }
 }

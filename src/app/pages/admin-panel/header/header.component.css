@@ -1,0 +1,42 @@
+.header {
+  background-color: var(--var-dark-gray-color);
+  color: var(--var-white-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  height: 4rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  color: var(--var-white-color);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.logout {
+  background-color: var(--var-red-color);
+}
+
+.nav-item.logout:hover {
+  cursor: pointer;
+  background-color: var(--var-dark-red-color);
+}

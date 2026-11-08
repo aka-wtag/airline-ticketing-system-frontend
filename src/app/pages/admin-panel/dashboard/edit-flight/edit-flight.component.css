@@ -1,0 +1,99 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.popup {
+  margin: 10rem auto;
+  padding: 1.5rem;
+  background: var(--var-off-white-color);
+  border-radius: 0.5rem;
+  width: 50%;
+  max-width: 37.5rem;
+  position: relative;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+}
+
+.popup .close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  transition: all 200ms;
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--var-black-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.popup .close:hover {
+  color: var(--var-red-color);
+}
+
+.popup .content {
+  max-height: 70%;
+  overflow-y: auto;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+}
+
+.container .form {
+  margin-top: 2rem;
+}
+
+.form .input-box {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.form .input-box input,
+.select-box select {
+  height: 3rem;
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--var-light-gray-color);
+}
+
+.form button {
+  height: 3rem;
+  width: 100%;
+  color: var(--var-white-color);
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background: var(--var-blue-color);
+}
+
+.form button:hover {
+  background: var(--var-light-blue-color);
+}
+
+small {
+  color: var(--var-red-color);
+  font-weight: bold;
+}
+
+.form button:disabled {
+  background-color: var(--var-light-gray-color);
+  cursor: not-allowed;
+}

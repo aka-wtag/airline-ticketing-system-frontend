@@ -1,0 +1,46 @@
+<app-edit-airline *ngIf="showEditAirlineForm" (closeForm)="closeEditAirlineForm()" (success)="loadAirlines()"
+  [selectedAirline]="selectedAirline" [editMode]="editMode">
+</app-edit-airline>
+
+<app-confirmation-modal *ngIf="isConfirmationModalOpen"
+  (handleConfirm)="onDeleteConfirmation($event)"></app-confirmation-modal>
+
+<section class="airline">
+  <h2>Airlines</h2>
+  <button class="add-btn" (click)="addAirlineForm()">Add Airline</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Airline ID</th>
+        <th>Model</th>
+        <th>Airline Name</th>
+        <th>Seats</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container
+        *ngFor="let airline of airlines | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems }">
+        <tr>
+          <td>{{ airline.airlineId }}</td>
+          <td>{{ airline.airlineModel }}</td>
+          <td>{{ airline.airlineName }}</td>
+          <td>{{ airline.numberOfSeats }}</td>
+          <td>
+            <button class="edit-btn" (click)="editAirlineForm(airline)">
+              <img src="../../../assets/icons/edit-icon.svg" alt="edit_icon" width="20" height="20" />
+            </button>
+            <button class="delete-btn" (click)="openConfirmationModal(airline)">
+              <img src="../../../assets/icons/delete-icon.svg" alt="delete_icon" width="20" height="20" />
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="pagination-controls">
+    <pagination-controls (pageChange)="onPageChange($event)" previousLabel="Previous"
+      nextLabel="Next" [autoHide]="true"></pagination-controls>
+  </div>
+</section>

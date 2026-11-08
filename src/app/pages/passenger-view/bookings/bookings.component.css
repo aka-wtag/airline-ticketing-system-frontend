@@ -1,0 +1,125 @@
+.container {
+    text-align: center;
+    padding: 1.25rem;
+    background: linear-gradient(90deg, #2c3e50, #bdc3c7);
+    min-height: calc(100vh - 3.1875rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-header {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+    color: #ffffff;
+}
+
+.flight-status {
+    background: #ffffff;
+    border-radius: 0.625rem;
+    padding: 1.25rem;
+    margin-bottom: 2.1875rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 50rem;
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.flight-status:hover {
+    transform: translateY(-0.3125rem);
+}
+
+.flight-status-column {
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    padding: 0 1.25rem;
+}
+
+.flight-status-location {
+    font-size: 1.125rem;
+    margin-bottom: 0.625rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.flight-status-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flight-status-time {
+    font-size: 1rem;
+    color: #000;
+}
+
+.flight-status-middle {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.625rem;
+}
+
+.flight-status-middle .top {
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    justify-content: center;
+    padding: 1.25rem 1.25rem 0 1.25rem;
+}
+
+.flight-status-line {
+    height: 0.0625rem;
+    background-color: #4caf50;
+    position: absolute;
+    width: 40%;
+}
+
+.left-line {
+    left: 0;
+}
+
+.right-line {
+    right: 0;
+}
+
+.flight-status-icon {
+    font-size: 1.5rem;
+    color: #4caf50;
+    background: #fff;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.flight-status-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+.flight-status-types {
+    background-color: #d1e7dd;
+    border-radius: 0.3125rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    color: #155724;
+    margin-left: 1.25rem;
+}
+
+.cancel-button {
+    background-color: #e7d1d6;
+    border-radius: 0.3125rem;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    color: #57152c;
+    margin-left: 1.25rem;
+    cursor: pointer;
+}

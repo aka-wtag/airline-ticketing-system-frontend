@@ -1,0 +1,44 @@
+<app-confirmation-modal *ngIf="isConfirmationModalOpen"
+    (handleConfirm)="onDeleteConfirmation($event)"></app-confirmation-modal>
+
+<div class="container">
+    <h1 class="container-header">FLIGHT STATUS</h1>
+    <ng-container *ngFor="let booking of passengerBookings">
+        <div class="flight-status">
+            <div class="flight-status-column">
+                <div class="flight-status-location">{{ booking.flight.departureLocation }}</div>
+                <div class="flight-status-details">
+                    <strong>Scheduled Departure:</strong>
+                    <div class="flight-status-time">{{ booking.flight.departureDate }}</div>
+                    <div class="flight-status-time">{{ booking.flight.departureTime }}</div>
+                </div>
+            </div>
+            <div class="flight-status-middle">
+                <div class="top">
+                    <div class="flight-status-line left-line"></div>
+                    <div class="flight-status-icon">✈️</div>
+                    <div class="flight-status-line right-line"></div>
+                </div>
+                <div class="bottom">
+                    <p><strong>Booking Number:</strong> {{ booking.bookingNumber }}</p>
+                    <p><strong>Booking Date:</strong> {{ booking.bookingDate}}</p>
+                    <p><strong>Booked Seats:</strong> {{ booking.bookedSeats }}</p>
+                    <p><strong>Booking Cost:</strong> {{ booking.bookingAmount }}</p>
+                </div>
+            </div>
+            <div class="flight-status-column">
+                <div class="flight-status-location">{{ booking.flight.arrivalLocation }}</div>
+                <div class="flight-status-details">
+                    <strong>Scheduled Arrival:</strong>
+                    <div class="flight-status-time">{{ booking.flight.arrivalDate }}</div>
+                    <div class="flight-status-time">{{ booking.flight.arrivalTime }}</div>
+                </div>
+            </div>
+            <div class="flight-status-content">
+                <div class="flight-status-types">{{ getStatus(booking) }}</div>
+                <button *ngIf="shouldShowCancelButton(booking)" class="cancel-button"
+                    (click)="openConfirmationModal(booking)">Cancel</button>
+            </div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,75 @@
+.container {
+    width: 90%;
+    margin: 2rem auto;
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.625rem;
+    margin-bottom: 1.25rem;
+}
+
+.search-input {
+    padding: 0.625rem;
+    border: 0.063rem solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    flex: 1;
+    max-width: 12.5rem;
+}
+
+.search-button {
+    padding: 0.625rem 1.25rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: var(--primary-color-hover);
+}
+
+.flight-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+}
+
+.flight-table th,
+.flight-table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.flight-table th {
+    background-color: var(--secondary-color);
+}
+
+.flight-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.book-button {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.book-button:hover {
+    background-color: var(--primary-color-hover);
+}
