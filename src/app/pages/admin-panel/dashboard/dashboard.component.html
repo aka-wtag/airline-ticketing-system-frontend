@@ -1,0 +1,70 @@
+<app-edit-flight *ngIf="showEditFlightForm" (closeForm)="closeEditFlightForm()" (updateSuccess)="getFlightsOnSuccess()"
+  [selectedFlight]="selectedFlight" [airlines]="airlines">
+</app-edit-flight>
+
+<app-confirmation-modal *ngIf="isConfirmationModalOpen"
+  (handleConfirm)="onDeleteConfirmation($event)"></app-confirmation-modal>
+
+<div class="container">
+  <div class="box">
+    <img src="assets/icons/user.png" alt="user_icon" />
+    <p>Total Passengers</p>
+    <p>{{ passengers.length }}</p>
+  </div>
+  <div class="box">
+    <img src="assets/icons/flight.png" alt="user_icon" />
+    <p>Total Flights</p>
+    <p>{{ flights.length }}</p>
+  </div>
+  <div class="box">
+    <img src="assets/icons/airline.png" alt="user_icon" />
+    <p>Total Airlines</p>
+    <p>{{ airlines.length }}</p>
+  </div>
+</div>
+
+<section class="flights">
+  <h2>Flights</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Flight ID</th>
+        <th>Arrival</th>
+        <th>Departure</th>
+        <th>Destination</th>
+        <th>Source</th>
+        <th>Fare</th>
+        <th>Airline</th>
+        <th>Seats Available</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let flight of flights">
+        <tr>
+          <td>{{ flight.flightId }}</td>
+          <td>
+            {{ flight.arrivalTime }}
+            {{ flight.arrivalDate | date }}
+          </td>
+          <td>{{ flight.departureTime }} {{ flight.departureDate | date }}</td>
+          <td>{{ flight.arrivalLocation }}</td>
+          <td>{{ flight.departureLocation }}</td>
+          <td>{{ flight.fare }}</td>
+          <td>
+            {{ flight.airline.airlineModel }}, {{ flight.airline.airlineName }}
+          </td>
+          <td>{{ flight.remainingSeats }}</td>
+          <td>
+            <button class="edit-btn" (click)="editFlightForm(flight)">
+              <img [src]="editIcon" alt="edit_icon" [width]="iconWidth" [height]="iconHeight" />
+            </button>
+            <button class="edit-btn" (click)="openConfirmationModal(flight)">
+              <img [src]="deleteIcon" alt="delete_icon" [width]="iconWidth" [height]="iconHeight" />
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</section>
