@@ -16,6 +16,8 @@ RUN npm install -g serve
 
 USER node
 
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 # Copy compiled files from builder stage
 COPY --from=builder --chown=node:node /app/dist/* /app/public/
 
